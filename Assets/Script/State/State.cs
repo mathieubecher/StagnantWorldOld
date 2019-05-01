@@ -5,14 +5,16 @@ using System;
 
 public class State
 {
-    private CharacterController character;
-    private Direction direction;
+    protected CharacterController character;
+    protected Direction direction;
+    protected bool hasHand = false;
 
-    public State(CharacterController pc)
+    public State(CharacterController pc,Direction direction = Direction.BOTTOM)
     {
+        this.direction = direction;
         character = pc;
     }
-
+    
     public void Move()
     {
         character.GetComponent<Rigidbody2D>().velocity = new Vector3(character.Move.x, character.Move.y);
@@ -29,40 +31,13 @@ public class State
 
     public void Hit()
     {
-        RotateWeapon();
-
+        character.CurrentState = new HitState(character,direction);
     }
 
-    public void RotateWeapon()
+    public bool HasHand()
     {
-        float rotate = 0;
-        switch (direction)
-        {
-            case Direction.TOP:
-                rotate = 0;
-                break;
-            case Direction.BOTTOM:
-                rotate = 180;
-                break;
-            case Direction.LEFT:
-                rotate = 90;
-                break;
-            case Direction.RIGHT:
-                rotate = -90;
-                break;
-            case Direction.TOPLEFT:
-                rotate = 45;
-                break;
-            case Direction.TOPRIGHT:
-                rotate = -45;
-                break;
-            case Direction.BOTTOMLEFT:
-                rotate = 135;
-                break;
-            case Direction.BOTTOMRIGHT:
-                rotate = -135;
-                break;
-        }
-        character.transform.GetChild(0).transform.eulerAngles = new Vector3(0, 0, rotate);
+        return hasHand;
     }
+
+    public virtual void HandUpdate() { }
 }

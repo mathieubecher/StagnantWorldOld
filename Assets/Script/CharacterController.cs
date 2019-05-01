@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+
 public enum Direction{ LEFT, RIGHT, TOP, BOTTOM, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT }
 
 public class CharacterController : MonoBehaviour
 {
     private State currentState;
     private Animator anim;
+    public GameObject hitbox;
 
     private Vector2 move;
     public Vector2 Move { get => move; set => move = value; }
+    public State CurrentState { get => currentState; set => currentState = value; }
 
     public bool joystick;
 
@@ -19,17 +22,21 @@ public class CharacterController : MonoBehaviour
     void Start()
     {
         move = new Vector2(0, 0);
-        currentState = new State(this);
+        CurrentState = new State(this);
         anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()   
     {
-        DetectMoveInput();
-        currentState.Move();
-        currentState.Hit();
-
+        if (!CurrentState.HasHand())
+        {
+            DetectMoveInput();
+            CurrentState.Move();
+            if (Input.GetKeyDown(InputConfig.Hit) || Input.GetKeyDown(KeyCode.JoystickButton1))
+                CurrentState.Hit();
+        }
+        else CurrentState.HandUpdate();
     }
 
     private void DetectMoveInput()
