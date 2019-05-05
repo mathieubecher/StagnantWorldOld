@@ -3,47 +3,70 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-
-public enum Direction{ LEFT, RIGHT, TOP, BOTTOM, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT }
-
-public class CharacterController : MonoBehaviour
+public class CharacterController : SimpleController
 {
-    private State currentState;
-    private Animator anim;
-    public GameObject hitbox;
-
-    private Vector2 move;
-    public Vector2 Move { get => move; set => move = value; }
-    public State CurrentState { get => currentState; set => currentState = value; }
-
     public bool joystick;
+    public float activeX = 0;
+    public float activeY = 0;
+    public float activeA = 0;
+    public float activeB = 0;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        move = new Vector2(0, 0);
-        CurrentState = new State(this);
-        anim = GetComponent<Animator>();
-    }
 
-    // Update is called once per frame
-    void Update()   
+    protected override void Update()
     {
-        if (!CurrentState.HasHand())
+        DetectMoveInput();
+        CurrentState.Move();
+
+        if(Input.GetKey(InputConfig.Hit) || Input.GetKey(KeyCode.JoystickButton2))
         {
-            DetectMoveInput();
-            CurrentState.Move();
-            if (Input.GetKeyDown(InputConfig.Hit) || Input.GetKeyDown(KeyCode.JoystickButton1))
-                CurrentState.Hit();
+            left = false;
+            activeX += Time.deltaTime;
+            if (activeX > 0.2) CurrentState.ChargeHit();
         }
-        else CurrentState.HandUpdate();
-    }
+        else
+        {
+            if (activeX > 0)
+            {
+                CurrentState.Hit();
+            }
+            activeX = 0;
+        }
+        if (Input.GetKey(InputConfig.Dash) || Input.GetKey(KeyCode.JoystickButton0))
+        {
+            activeA += Time.deltaTime;
+            if (activeA > 0.2) CurrentState.ChargeDash();
+        }
+        else
+        {
+            if (Math.Abs(move.x) + Math.Abs(move.y) > 0 && activeA>0) { 
+                CurrentState.Dash();
+            }
+            activeA = 0;
+        }
 
-    private void DetectMoveInput()
+        if (Input.GetKey(InputConfig.HitLeft) || Input.GetKey(KeyCode.JoystickButton3))
+        {
+            left = true;
+            activeY += Time.deltaTime;
+            if (activeY > 0.2) CurrentState.ChargeHit();
+        }
+        else
+        {
+            if (activeY > 0)
+            {
+                CurrentState.Hit();
+            }
+            activeY = 0;
+        }
+
+        CurrentState.Update();
+    }
+    protected override void DetectMoveInput()
     {
         if (joystick)
         {
-            if(!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D)) {
+            if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D))
+            {
                 move.x = Input.GetAxis("Horizontal");
                 move.y = Input.GetAxis("Vertical");
             }

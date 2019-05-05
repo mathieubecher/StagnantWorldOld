@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Hitbox : MonoBehaviour
 {
-    private GameObject parent;
+    public float damage = 1;
     // Start is called before the first frame update
     void Start()
     {
-        
+            
     }
 
     // Update is called once per frame
@@ -17,8 +17,13 @@ public class Hitbox : MonoBehaviour
         
     }
 
-    public void SetParent(GameObject parent)
+   
+    void OnTriggerEnter2D(Collider2D c)
     {
-        this.parent = parent;
+        if(c.tag == "Character" && !c.isTrigger) {
+            SimpleController cc = c.gameObject.GetComponent(typeof(SimpleController)) as SimpleController;
+            cc.Life -= 1;
+            Debug.Log(cc.Life + "/" + cc.LIFE);
+        }
     }
 }

@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5468668855534673864}
-  - component: {fileID: 4368136437432391976}
-  m_Layer: 0
+  - component: {fileID: 1002240960263598134}
+  m_Layer: 10
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4368136437432391976
+--- !u!114 &1002240960263598134
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,9 +41,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5468668855534673865}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb47a69950c1c76439603e91a7fa9406, type: 3}
+  m_Script: {fileID: 11500000, guid: 76a0822e4c96919469ce4f60a1207f52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: sword
+  chargeMove: 0
 --- !u!1 &5468668857234918765
 GameObject:
   m_ObjectHideFlags: 0
@@ -55,9 +57,10 @@ GameObject:
   - component: {fileID: 5468668857234918764}
   - component: {fileID: 5468668857234918762}
   - component: {fileID: 5468668857234918763}
-  m_Layer: 0
+  - component: {fileID: 3171120490992548600}
+  m_Layer: 10
   m_Name: hitbox
-  m_TagString: Untagged
+  m_TagString: Hit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -151,3 +154,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.13, y: 0.13}
   m_EdgeRadius: 0
+--- !u!114 &3171120490992548600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5468668857234918765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb47a69950c1c76439603e91a7fa9406, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
