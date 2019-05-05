@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d40c82e88439d84f8b7b4acb9d49e37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitbox: {fileID: 8865689947886625462}
   name: shield
   chargeMove: 0.5
 --- !u!1001 &3525719622105051099
@@ -123,6 +124,12 @@ PrefabInstance:
 --- !u!1 &8865689949577474066 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5468668855534673865, guid: a4bac58201917d94ca2d061b727a868a,
+    type: 3}
+  m_PrefabInstance: {fileID: 3525719622105051099}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8865689947886625462 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5468668857234918765, guid: a4bac58201917d94ca2d061b727a868a,
     type: 3}
   m_PrefabInstance: {fileID: 3525719622105051099}
   m_PrefabAsset: {fileID: 0}

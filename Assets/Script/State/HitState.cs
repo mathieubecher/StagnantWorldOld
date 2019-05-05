@@ -22,7 +22,8 @@ public class HitState : State
         RotateWeapon();
         GetEndCharacterPosition();
         character.Move = Vector2.zero;
-        Move();        
+        Move();
+        UpdateAnim(false,false,false,false);
     }
     public void GetEndCharacterPosition()
     {

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Hitbox : MonoBehaviour
 {
     public float damage = 1;
+    public GameObject weapon;
     // Start is called before the first frame update
     void Start()
     {

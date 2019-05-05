@@ -12,6 +12,7 @@ public class ChargeHitState : State
     {
         HitWeapon hitweapon = character.GetWeapon().GetComponent(typeof(HitWeapon)) as HitWeapon;
         hitweapon.LoadCharge(character,this);
+        UpdateAnim(false, false, false, false);
     }
     public override void RotateWeapon()
     {

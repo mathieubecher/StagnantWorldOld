@@ -141,8 +141,7 @@ MonoBehaviour:
   weapon: {fileID: 5468668855534673865, guid: a4bac58201917d94ca2d061b727a868a, type: 3}
   leftWeapon: {fileID: 8865689949577474066, guid: 6dc1e4ad1ae5151429dca14f02bef8ac,
     type: 3}
-  LIFE: 5
-  life: 0
+  LIFE: 50
   left: 0
 --- !u!1 &436694442
 GameObject:
@@ -208,7 +207,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
@@ -313,12 +312,12 @@ PrefabInstance:
     - target: {fileID: 7406905100262462545, guid: 3b009d7fb882de64cb6162b870cf628b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.5781889
+      value: 0.772
       objectReference: {fileID: 0}
     - target: {fileID: 7406905100262462545, guid: 3b009d7fb882de64cb6162b870cf628b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.80185986
+      value: 0.709
       objectReference: {fileID: 0}
     - target: {fileID: 7406905100262462545, guid: 3b009d7fb882de64cb6162b870cf628b,
         type: 3}
@@ -368,7 +367,7 @@ PrefabInstance:
     - target: {fileID: 7406905100262462544, guid: 3b009d7fb882de64cb6162b870cf628b,
         type: 3}
       propertyPath: m_Mass
-      value: 1
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 4733330777511776052, guid: 3b009d7fb882de64cb6162b870cf628b,
         type: 3}
@@ -480,7 +479,7 @@ RectTransform:
   m_Children:
   - {fileID: 1991837582}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -520,6 +519,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+  weapon: {fileID: 0}
 --- !u!61 &1495470373
 BoxCollider2D:
   m_ObjectHideFlags: 0

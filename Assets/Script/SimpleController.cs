@@ -6,11 +6,11 @@ public enum Direction { LEFT, RIGHT, TOP, BOTTOM, TOPLEFT, TOPRIGHT, BOTTOMLEFT,
 public class SimpleController : MonoBehaviour
 {
     private State currentState;
-    private Animator anim;
+    public Animator anim;
     public GameObject weapon;
     public GameObject leftWeapon;
     public int LIFE;
-    public int life;
+    protected int life;
     public bool left = false;
 
     protected Vector2 move;

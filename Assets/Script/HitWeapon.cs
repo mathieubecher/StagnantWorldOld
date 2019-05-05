@@ -5,6 +5,7 @@ using UnityEngine;
 public class HitWeapon : MonoBehaviour
 {
     protected GameObject parent;
+    public GameObject hitbox;
     public string name;
     protected List<HitConfig> hits = new List<HitConfig>();
     protected HitConfig chargeHit;
@@ -15,7 +16,6 @@ public class HitWeapon : MonoBehaviour
 
     public HitWeapon():base()
     {
-
         LoadAllHit();
     }
     
@@ -36,7 +36,7 @@ public class HitWeapon : MonoBehaviour
         name = "sword";
         Hits.Add(new HitConfig("default"));
         Hits[0].next = new HitConfig("default2", 0.2f, 70, -70);
-        Hits[0].next.next = new HitConfig("defaultend", 0.14f, -150, 0, new Vector3(-0.15f, 0.02f, 0), new Vector3(0, 0.16f, 0), new Vector3(0.5f, 1, 1), new Vector3(0.5f, 1, 1), new Vector3(0, 0.2f, 0), 0.1f, 0.3f);
+        Hits[0].next.next = new HitConfig("defaultend", 0.14f, -150, 50, new Vector3(-0.15f, 0.02f, 0), new Vector3(0, 0.16f, 0), new Vector3(0.5f, 1, 1), new Vector3(0.5f, 1, 1), new Vector3(0, 0.2f, 0), 0.1f, 0.3f);
         chargeHit = new HitConfig("charge", 0.2f, -90, 90, 0, 0.3f);
     }
 

@@ -13,6 +13,7 @@ public class State
     {
         this.direction = direction;
         character = pc;
+        
     }
 
     public virtual void Move()
@@ -23,14 +24,32 @@ public class State
     }
     public Direction UpdateDirection()
     {
-        if (character.Move.y > 0 && Math.Abs(Math.Abs(character.Move.y) - Math.Abs(character.Move.x)) > 0.4 && Math.Abs(character.Move.y) > Math.Abs(character.Move.x)) direction = Direction.TOP;
-        else if (character.Move.y < 0 && Math.Abs(Math.Abs(character.Move.y) - Math.Abs(character.Move.x)) > 0.4 && Math.Abs(character.Move.y) > Math.Abs(character.Move.x)) direction = Direction.BOTTOM;
-        else if (character.Move.x < 0 && Math.Abs(Math.Abs(character.Move.y) - Math.Abs(character.Move.x)) > 0.4 && Math.Abs(character.Move.x) > Math.Abs(character.Move.y)) direction = Direction.LEFT;
-        else if (character.Move.x > 0 && Math.Abs(Math.Abs(character.Move.y) - Math.Abs(character.Move.x)) > 0.4 && Math.Abs(character.Move.x) > Math.Abs(character.Move.y)) direction = Direction.RIGHT;
+        if (character.Move.y > 0 && Math.Abs(Math.Abs(character.Move.y) - Math.Abs(character.Move.x)) > 0.4 && Math.Abs(character.Move.y) > Math.Abs(character.Move.x))
+        {
+            direction = Direction.TOP;
+            character.anim.SetInteger("Direction",2);
+        }
+        else if (character.Move.y < 0 && Math.Abs(Math.Abs(character.Move.y) - Math.Abs(character.Move.x)) > 0.4 && Math.Abs(character.Move.y) > Math.Abs(character.Move.x))
+        {
+            direction = Direction.BOTTOM;
+            character.anim.SetInteger("Direction", 0);
+        }
+        else if (character.Move.x < 0 && Math.Abs(Math.Abs(character.Move.y) - Math.Abs(character.Move.x)) > 0.4 && Math.Abs(character.Move.x) > Math.Abs(character.Move.y))
+        {
+            direction = Direction.LEFT;
+            character.anim.SetInteger("Direction", 1);
+        }
+        else if (character.Move.x > 0 && Math.Abs(Math.Abs(character.Move.y) - Math.Abs(character.Move.x)) > 0.4 && Math.Abs(character.Move.x) > Math.Abs(character.Move.y))
+        {
+            direction = Direction.RIGHT;
+            character.anim.SetInteger("Direction", 3);
+        }
         else if (character.Move.y > 0 && character.Move.x < 0) direction = Direction.TOPLEFT;
         else if (character.Move.y > 0 && character.Move.x > 0) direction = Direction.TOPRIGHT;
         else if (character.Move.y < 0 && character.Move.x < 0) direction = Direction.BOTTOMLEFT;
         else if (character.Move.y < 0 && character.Move.x > 0) direction = Direction.BOTTOMRIGHT;
+
+        UpdateAnim((Math.Abs(character.Move.x) + Math.Abs(character.Move.y) > 0), false, false, false);
         return direction;
     }
     public virtual void Hit()
@@ -69,9 +88,29 @@ public class State
     }
     public virtual string GetName()
     {
-        return "Normal";
+        return "Move";
     }
 
     public virtual void Update() { }
+
     public virtual void RotateWeapon() { }
+
+    public virtual void UpdateAnim(bool move, bool run, bool dash, bool hit)
+    {
+        if ( direction == Direction.TOP)
+            character.anim.SetInteger("Direction", 2);
+        else if (direction == Direction.BOTTOM)
+            character.anim.SetInteger("Direction", 0);
+        else if (direction == Direction.LEFT)
+            character.anim.SetInteger("Direction", 1);
+        else if (direction == Direction.RIGHT)
+            character.anim.SetInteger("Direction", 3);
+
+        character.anim.SetBool("Move", move);
+        character.anim.SetBool("Run", run);
+        character.anim.SetBool("Dash", dash);
+        character.anim.SetBool("Hit", hit);
+        character.anim.SetBool("Iddle", !(hit || move || run || dash));
+
+    }
 }

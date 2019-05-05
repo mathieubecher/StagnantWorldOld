@@ -18,6 +18,7 @@ public class DashState : State
         this.idleTime = idleTime;
         float actualSpeed = (float)Math.Sqrt(Math.Pow(character.Move.x, 2) + Math.Pow(character.Move.y, 2));
         this.moveDash = character.Move*speed/actualSpeed;
+        UpdateAnim(true, false, false, false);
     }
 
     public override void Move() { character.GetComponent<Rigidbody2D>().velocity = new Vector3(moveDash.x, moveDash.y); }
