@@ -11,13 +11,27 @@ public class CharacterController : SimpleController
     public float activeA = 0;
     public float activeB = 0;
 
+    public Texture2D spritebase;
+    
+    public Equipment helmet;
+    public Equipment pants;
+    public Equipment mitt;
+    public Equipment torso;
+
+    protected override void Start()
+    {
+        base.Start();
+    }
 
     protected override void Update()
     {
         DetectMoveInput();
         CurrentState.Move();
+        CurrentState.UpdateAnim();
+        CurrentState.Update();
 
-        if(Input.GetKey(InputConfig.Hit) || Input.GetKey(KeyCode.JoystickButton2))
+        // Detect Hit
+        if (Input.GetKey(InputConfig.Hit) || Input.GetKey(KeyCode.JoystickButton2))
         {
             left = false;
             activeX += Time.deltaTime;
@@ -31,6 +45,8 @@ public class CharacterController : SimpleController
             }
             activeX = 0;
         }
+
+        // Detect Dash
         if (Input.GetKey(InputConfig.Dash) || Input.GetKey(KeyCode.JoystickButton0))
         {
             activeA += Time.deltaTime;
@@ -38,12 +54,13 @@ public class CharacterController : SimpleController
         }
         else
         {
-            if (Math.Abs(move.x) + Math.Abs(move.y) > 0 && activeA>0) { 
+            if (Math.Abs(move.x) + Math.Abs(move.y) > 0 && activeA>0) {
+                Debug.Log("Dash");
                 CurrentState.Dash();
             }
             activeA = 0;
         }
-
+        // Detect Hit Left
         if (Input.GetKey(InputConfig.HitLeft) || Input.GetKey(KeyCode.JoystickButton3))
         {
             left = true;
@@ -59,8 +76,11 @@ public class CharacterController : SimpleController
             activeY = 0;
         }
 
-        CurrentState.Update();
+
+        
     }
+
+    // Détection du déplacement
     protected override void DetectMoveInput()
     {
         if (joystick)
@@ -89,4 +109,6 @@ public class CharacterController : SimpleController
             move.y = move.y / actualspeed;
         }
     }
+
+    
 }

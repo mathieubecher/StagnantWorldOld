@@ -9,7 +9,9 @@ public class DashState : State
     private float TIME;
     private float idleTime;
     private Vector3 moveDash;
-    // Start is called before the first frame update
+
+    /*                              CONSTRUCTEUR                                */
+    /*--------------------------------------------------------------------------*/
     public DashState(SimpleController pc, Direction direction, float speed = 2.2f, float time = 0.25f, float idleTime = 0.15f) : base(pc, direction)
     {
         this.speed = speed;
@@ -18,24 +20,29 @@ public class DashState : State
         this.idleTime = idleTime;
         float actualSpeed = (float)Math.Sqrt(Math.Pow(character.Move.x, 2) + Math.Pow(character.Move.y, 2));
         this.moveDash = character.Move*speed/actualSpeed;
-        UpdateAnim(true, false, false, false);
     }
 
+    /*                                  MOVE                                    */
+    /*--------------------------------------------------------------------------*/
     public override void Move() { character.GetComponent<Rigidbody2D>().velocity = new Vector3(moveDash.x, moveDash.y); }
+
+    /*                                  HIT                                     */
+    /*--------------------------------------------------------------------------*/
     public override void Hit() {
         if (time <= 0) base.Hit();
         else nextState = "hit";
     }
-    public override string GetName()
-    {
-        return "Dash";
-    }
 
+    /*                                 DASH                                     */
+    /*--------------------------------------------------------------------------*/
     public override void Dash() { nextState = "dash"; }
+
+    /*                                UPDATE                                    */
+    /*--------------------------------------------------------------------------*/
     public override void Update()
     {
         time -= Time.deltaTime;
-        if(time <= -idleTime)
+        if (time <= -idleTime)
         {
             base.UpdateDirection();
             NextState();
@@ -44,7 +51,7 @@ public class DashState : State
         {
             moveDash = Vector3.zero;
         }
-        else if(time <= 0.2 * TIME)
+        else if (time <= 0.2 * TIME)
         {
             character.gameObject.tag = "Character";
         }
@@ -53,4 +60,14 @@ public class DashState : State
             character.gameObject.tag = "Invulnerable";
         }
     }
+
+    // Sort le nom de l'état
+    public override string GetName()
+    {
+        return "Dash";
+    }
+    public override void AnimProgress() {
+
+    }
+
 }

@@ -10,6 +10,7 @@ public class HitWeapon : MonoBehaviour
     protected List<HitConfig> hits = new List<HitConfig>();
     protected HitConfig chargeHit;
     public float chargeMove = 0;
+    public Texture2D texture;
 
     public List<HitConfig> Hits { get => hits; set => hits = value; }
     public HitConfig ChargeHit { get => chargeHit; set => chargeHit = value; }

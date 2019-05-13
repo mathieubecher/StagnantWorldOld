@@ -3,7 +3,13 @@ guid: 128cd99cd7cc45c4ab5194d1c19f2da2
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - anim: {instanceID: 0}
+  - weapon: {instanceID: 0}
+  - leftWeapon: {instanceID: 0}
+  - sprite: {instanceID: 0}
+  - spritebase: {instanceID: 0}
+  - casque1: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

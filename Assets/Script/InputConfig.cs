@@ -11,6 +11,7 @@ public static class InputConfig
     private static KeyCode hit = KeyCode.Space;
     private static KeyCode hitLeft = KeyCode.F;
     private static KeyCode dash = KeyCode.LeftShift;
+    private static KeyCode interact = KeyCode.E;
 
     public static KeyCode Top { get => top; set => top = value; }
     public static KeyCode Left { get => left; set => left = value; }
@@ -19,5 +20,6 @@ public static class InputConfig
     public static KeyCode Hit { get => hit; set => hit = value; }
     public static KeyCode Dash { get => dash; set => dash = value; }
     public static KeyCode HitLeft { get => hitLeft; set => hitLeft = value; }
+    public static KeyCode Interact { get => interact; set => interact = value; }
 }
     

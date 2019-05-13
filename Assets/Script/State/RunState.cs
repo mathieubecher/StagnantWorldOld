@@ -5,21 +5,43 @@ using System;
 
 public class RunState : State
 {
-    public float speed = 1.2f;
-    private Vector3 moveDash;
+
+    /*                              CONSTRUCTEUR                                */
+    /*--------------------------------------------------------------------------*/
     public RunState(SimpleController pc,Direction direction):base(pc,direction)
     {
-        float actualSpeed = (float)Math.Sqrt(Math.Pow(character.Move.x, 2) + Math.Pow(character.Move.y, 2));
-        this.moveDash = character.Move * speed / actualSpeed;
-        UpdateAnim(true, false, false, false);
     }
+
+    /*                                  MOVE                                    */
+    /*--------------------------------------------------------------------------*/
     public override void Move() {
-        character.GetComponent<Rigidbody2D>().velocity = new Vector3(moveDash.x, moveDash.y) * 1.5f;
+        character.GetComponent<Rigidbody2D>().velocity = character.Move * 1.5f;
+        UpdateDirection();
     }
+    /*                                  HIT                                     */
+    /*--------------------------------------------------------------------------*/
+    public override void Hit()
+    { }
+
+    /*                               CHARGEHIT                                  */
+    /*--------------------------------------------------------------------------*/
+    public override void ChargeHit()
+    { }
+
+    /*                                 DASH                                     */
+    /*--------------------------------------------------------------------------*/
     public override void Dash()
     {
         character.CurrentState = new State(character, direction);
     }
+    
+    /*                              CHARGEDASH                                  */
+    /*--------------------------------------------------------------------------*/
+    public override void ChargeDash()
+    { }
+
+
+    // Sort le nom de l'état
     public override string GetName()
     {
         return "Run";
