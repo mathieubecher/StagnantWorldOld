@@ -11,13 +11,18 @@ public class State
     public float percentProgress = 0;
     private float distance = 0;
 
+    private Vector3 lastPos;
+
+    public Direction Direction { get => direction; set => direction = value; }
+
     /*                              CONSTRUCTEUR                                */
     /*--------------------------------------------------------------------------*/
 
     public State(SimpleController pc, Direction direction = Direction.BOTTOM)
     {
-        this.direction = direction;
+        this.Direction = direction;
         character = pc;
+        lastPos = pc.transform.localPosition;
         
     }
 
@@ -34,84 +39,90 @@ public class State
     public virtual void Hit()
     {
         HitWeapon hitweapon = character.GetWeapon().GetComponent(typeof(HitWeapon)) as HitWeapon;
-        character.CurrentState = new HitState(character, direction, hitweapon.Hits[0]);
+        character.CurrentState = new HitState(character, Direction, hitweapon.Hits[0]);
     }
 
     /*                               CHARGEHIT                                  */
     /*--------------------------------------------------------------------------*/
     public virtual void ChargeHit()
     {
-        character.CurrentState = new ChargeHitState(character, direction);
+        character.CurrentState = new ChargeHitState(character, Direction);
     }
 
     /*                                 DASH                                     */
     /*--------------------------------------------------------------------------*/
     public virtual void Dash()
     {
-        character.CurrentState = new DashState(character, direction);
+        character.CurrentState = new DashState(character, Direction);
     }
 
     /*                              CHARGEDASH                                  */
     /*--------------------------------------------------------------------------*/
     public virtual void ChargeDash()
     {
-        character.CurrentState = new RunState(character, direction);
+        character.CurrentState = new RunState(character, Direction);
     }
 
     /*                                UPDATE                                    */
     /*--------------------------------------------------------------------------*/
     public virtual void Update() {
-        distance += (float)Math.Sqrt(Math.Pow(character.Move.x, 2) + Math.Pow(character.Move.y, 2));
+
+        Vector3 movementSpeed = character.transform.localPosition - lastPos;
+        distance += (float)Math.Sqrt(Math.Pow(movementSpeed.x, 2) + Math.Pow(movementSpeed.y, 2));
+        lastPos = character.transform.localPosition;
     }
 
     // Next state
     protected virtual void NextState()
     {
         if (nextState == "dash")
-            character.CurrentState = new DashState(character, direction);
+            character.CurrentState = new DashState(character, Direction);
         else if (nextState == "hit")
         {
             HitWeapon hitweapon = character.GetWeapon().GetComponent(typeof(HitWeapon)) as HitWeapon;
-            character.CurrentState = new HitState(character, direction, hitweapon.Hits[0]);
+            character.CurrentState = new HitState(character, Direction, hitweapon.Hits[0]);
         }
         else if (nextState == "chargehit")
         {
-            character.CurrentState = new ChargeHitState(character, direction);
+            character.CurrentState = new ChargeHitState(character, Direction);
         }
-        else character.CurrentState = new State(character, direction);
+        else character.CurrentState = new State(character, Direction);
     }
 
     // Sort le nom de l'état
     public virtual string GetName()
     {
-        return (Math.Abs(character.Move.x) + Math.Abs(character.Move.y) > 0)?"Iddle":"Move";
+        return (Math.Abs(character.Move.x) + Math.Abs(character.Move.y) > 0)?"Move":"Iddle";
     }
     
     // Met à jour la direction du personnage à partir de ses mouvements
     public Direction UpdateDirection()
     {
+        Direction last = direction;
         if (character.Move.y > 0 && Math.Abs(Math.Abs(character.Move.y) - Math.Abs(character.Move.x)) * 2 / (Math.Abs(character.Move.y) + Math.Abs(character.Move.x)) > 0.4 && Math.Abs(character.Move.y) > Math.Abs(character.Move.x))
         {
-            direction = Direction.TOP;
+            Direction = Direction.TOP;
         }
         else if (character.Move.y < 0 && Math.Abs(Math.Abs(character.Move.y) - Math.Abs(character.Move.x)) * 2 / (Math.Abs(character.Move.y) + Math.Abs(character.Move.x)) > 0.4 && Math.Abs(character.Move.y) > Math.Abs(character.Move.x))
         {
-            direction = Direction.BOTTOM;
+            Direction = Direction.BOTTOM;
         }
         else if (character.Move.x < 0 && Math.Abs(Math.Abs(character.Move.y) - Math.Abs(character.Move.x)) * 2 / (Math.Abs(character.Move.y) + Math.Abs(character.Move.x)) > 0.4 && Math.Abs(character.Move.x) > Math.Abs(character.Move.y))
         {
-            direction = Direction.LEFT;
+            Direction = Direction.LEFT;
         }
         else if (character.Move.x > 0 && Math.Abs(Math.Abs(character.Move.y) - Math.Abs(character.Move.x)) * 2 / (Math.Abs(character.Move.y) + Math.Abs(character.Move.x)) > 0.4 && Math.Abs(character.Move.x) > Math.Abs(character.Move.y))
         {
-            direction = Direction.RIGHT;
+            Direction = Direction.RIGHT;
         }
-        else if (character.Move.y > 0 && character.Move.x < 0) direction = Direction.TOPLEFT;
-        else if (character.Move.y > 0 && character.Move.x > 0) direction = Direction.TOPRIGHT;
-        else if (character.Move.y < 0 && character.Move.x < 0) direction = Direction.BOTTOMLEFT;
-        else if (character.Move.y < 0 && character.Move.x > 0) direction = Direction.BOTTOMRIGHT;
+        else if (character.Move.y > 0 && character.Move.x < 0) Direction = Direction.TOPLEFT;
+        else if (character.Move.y > 0 && character.Move.x > 0) Direction = Direction.TOPRIGHT;
+        else if (character.Move.y < 0 && character.Move.x < 0) Direction = Direction.BOTTOMLEFT;
+        else if (character.Move.y < 0 && character.Move.x > 0) Direction = Direction.BOTTOMRIGHT;
 
-        return direction;
+        if(last != direction) distance = 0;
+
+        return Direction;
     }
 
     // Met à jour les animations du personnage en fonction de l'état et sa direction
@@ -140,7 +151,17 @@ public class State
 
 
     public virtual void AnimProgress() {
-        distance = distance % 10;
-        percentProgress = distance / 10;
+        if (GetName() == "Iddle")
+        {
+            percentProgress += Time.deltaTime;
+            percentProgress = percentProgress % 1;
+        }
+        else
+        {
+
+            distance = distance % 0.5f;
+            percentProgress = distance /0.5f;
+        }
+        //Debug.Log(percentProgress);
     }
 }

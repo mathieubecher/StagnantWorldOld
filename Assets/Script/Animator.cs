@@ -11,8 +11,14 @@ public class Animator : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private CharacterController character;
     public Sprite sprite;
+    public Direction direction;
+    private AnimSpritePos actualAnim;
+    private CharacterAnimMap allAnim;
 
-    public int i = 0;
+    private bool changeStateDir = false;
+    private string lastState = "";
+    private int lastId = 0;
+
     public float time = 0;
 
     // Start is called before the first frame update
@@ -24,33 +30,32 @@ public class Animator : MonoBehaviour
         texture.filterMode = FilterMode.Point;
         LoadNude();
         TakeSprite(0);
+        allAnim = new CharacterAnimMap();
+        actualAnim = allAnim.Get("Move");
         
-    }
-    public void TakeSprite(int pos)
-    {
-        TakeSprite(pos % (texture.width / width), Mathf.Min(pos / (texture.width / width)));
-    }
-    public void TakeSprite(int x, int y)
-    {
-        
-        sprite = Sprite.Create(texture, new Rect(x * width, ((texture.height / height) - (y + 1)) * height, width, height), new Vector2(0.49f, 0.35f),50f);
-        spriteRenderer.sprite = sprite;
     }
 
     // Update is called once per frame
     void Update()
     {
         character.CurrentState.AnimProgress();
-        Debug.Log(character.CurrentState.GetName() + " " + character.CurrentState.percentProgress);
-        time -= Time.deltaTime;
-        if(time < 0)
-        {
-            time = 0.5f;
-            ++i;
-            TakeSprite(i);
-        }
+        //Debug.Log(character.CurrentState.GetName() + " " + character.CurrentState.percentProgress);
+        UpdateDirection();
+        UpdateSprite();
         
     }
+
+    public void TakeSprite(int pos)
+    {
+        TakeSprite(pos % (texture.width / width), Mathf.Min(pos / (texture.width / width)));
+    }
+    public void TakeSprite(int x, int y)
+    {
+
+        sprite = Sprite.Create(texture, new Rect(x * width, ((texture.height / height) - (y + 1)) * height, width, height), new Vector2(0.49f, 0.35f), 50f);
+        spriteRenderer.sprite = sprite;
+    }
+
     public void LoadNude()
     {
        
@@ -90,5 +95,49 @@ public class Animator : MonoBehaviour
             texture.SetPixels(finalSprite, mip);
         }
         texture.Apply(false);
+    }
+
+
+    private void UpdateDirection()
+    {
+        Direction last = direction;
+        if (character.CurrentState.Direction == Direction.LEFT ||
+           character.CurrentState.Direction == Direction.RIGHT ||
+           character.CurrentState.Direction == Direction.TOP ||
+           character.CurrentState.Direction == Direction.BOTTOM) direction = character.CurrentState.Direction;
+        if (last != direction) changeStateDir = true;
+    }
+    private void UpdateSprite()
+    {
+        bool change = false;
+        if(lastState != character.CurrentState.GetName())
+        {
+            lastState = character.CurrentState.GetName();
+            changeStateDir = true;
+        }
+        if (lastState.Contains("Hit"))
+        {
+            HitState state = character.CurrentState as HitState;
+            if(state.HitConfig != null && lastId != state.HitConfig.id)
+            {
+                lastId = state.HitConfig.id;
+                changeStateDir = true;
+            }
+        }
+        else if (lastId != 0){
+            lastId = 0;
+            changeStateDir = true;
+        }
+
+        if (changeStateDir)
+        {
+            changeStateDir = false;
+            
+            actualAnim = allAnim.Get(lastState, direction, lastId);
+            Debug.Log(lastState + " " + direction + " " + lastId);
+            change = true;
+        }
+        if(!change) change = actualAnim.Next(character.CurrentState.percentProgress);
+        if(change) TakeSprite(actualAnim.ActualSprite);
     }
 }

@@ -13,6 +13,9 @@ public class HitState : State
     
     private Vector3 endCharacterPosition;
 
+    public GameObject Weapon { get => weapon;}
+    public HitConfig HitConfig { get => hit;}
+
     /*                              CONSTRUCTEUR                                */
     /*--------------------------------------------------------------------------*/
     public HitState(SimpleController controller, Direction direction, HitConfig hit) : base(controller, direction)
@@ -42,7 +45,6 @@ public class HitState : State
     {
         nextState = "hit";
         bool isSameWeapon = nameWeapon == (character.GetWeapon().GetComponent(typeof(HitWeapon)) as HitWeapon).name;
-        Debug.Log(nameWeapon + " " + (character.GetWeapon().GetComponent(typeof(HitWeapon)) as HitWeapon).name + " " + isSameWeapon);
         if (time < -hit.endTime || (time > hit.time && !isSameWeapon))
         {
 
@@ -179,7 +181,7 @@ public class HitState : State
     private void deleteWeapon()
     {
         int i = 0;
-        while (i < character.transform.childCount && character.transform.GetChild(i).gameObject.name.Contains("life")) i++;
+        while (i < character.transform.childCount && (character.transform.GetChild(i).gameObject.name.Contains("life") || character.transform.GetChild(i).gameObject.name.Contains("Camera"))) i++;
         if (i < character.transform.childCount)
             MonoBehaviour.Destroy(character.transform.GetChild(i).gameObject);
         delete = true;

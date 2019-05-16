@@ -9,7 +9,7 @@ public enum HitType
 
 public class HitConfig 
 {
-    public string name = "default";
+    public int id = 0;
     public float time = 0;
     public float beginRotation = -70;   
     public float endRotation = 70;
@@ -24,18 +24,18 @@ public class HitConfig
 
     public HitType type = HitType.CIRCULAR;
     
-    public HitConfig(string name, float time = 0.2f, float beginRotation = -70, float endRotation = 70, float beginTime = 0, float endTime = 0.1f)
+    public HitConfig(int id, float time = 0.2f, float beginRotation = -70, float endRotation = 70, float beginTime = 0, float endTime = 0.1f)
     {
-        this.name = name;
+        this.id = id;
         this.time = time;
         this.beginRotation = beginRotation;
         this.endRotation = endRotation;
         this.beginTime = beginTime;
         this.endTime = endTime;
     }
-    public HitConfig(string name, float time, float beginRotation, float endRotation, Vector3 beginPosition, Vector3 endPosition, Vector3 beginScale, Vector3 endScale, Vector3 endPositionCharacter, float beginTime = 0,  float endTime = 0.1f)
+    public HitConfig(int id, float time, float beginRotation, float endRotation, Vector3 beginPosition, Vector3 endPosition, Vector3 beginScale, Vector3 endScale, Vector3 endPositionCharacter, float beginTime = 0,  float endTime = 0.1f)
     {
-        this.name = name;
+        this.id = id;
         this.time = time;
         this.beginRotation = beginRotation;
         this.endRotation = endRotation;

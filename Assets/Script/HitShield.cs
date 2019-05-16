@@ -7,7 +7,7 @@ public class HitShield : HitWeapon
     public override void LoadAllHit()
     {
         name = "shield";
-        hits.Add(new HitConfig("default", 0.2f, -50, 90, 0, 0.3f));
+        hits.Add(new HitConfig(0, 0.2f, -50, 90, 0, 0.3f));
         hits[0].beginScale = new Vector3(1, 0.5f, 1);
         hits[0].endScale = new Vector3(1, 0.5f, 1);
     }
