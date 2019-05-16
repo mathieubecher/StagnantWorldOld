@@ -28,6 +28,7 @@ public class Animator : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         texture = new Texture2D(character.spritebase.width, character.spritebase.height);
         texture.filterMode = FilterMode.Point;
+        Debug.Log(texture.mipmapCount);
         LoadNude();
         TakeSprite(0);
         allAnim = new CharacterAnimMap();
@@ -72,14 +73,14 @@ public class Animator : MonoBehaviour
         if (character.torso != null) LoadSprite(character.torso.texture);
         if (character.helmet != null) LoadSprite(character.helmet.texture);
         if (character.mitt != null) LoadSprite(character.mitt.texture);
-        //HitWeapon hw = character.weapon.GetComponent(typeof(HitWeapon)) as HitWeapon;
-        //if (hw.texture != null) LoadSprite(hw.texture);
+        HitWeapon hw = character.weapon.GetComponent(typeof(HitWeapon)) as HitWeapon;
+        if (hw.texture != null) LoadSprite(hw.texture);
         
     }
 
     public void LoadSprite(Texture2D textureAdd)
     {
-        int mipCount = Mathf.Min(3, texture.mipmapCount);
+        int mipCount = Mathf.Min(textureAdd.mipmapCount, texture.mipmapCount);
 
         for (int mip = 0; mip < mipCount; ++mip)
         {
@@ -117,11 +118,17 @@ public class Animator : MonoBehaviour
         }
         if (lastState.Contains("Hit"))
         {
-            HitState state = character.CurrentState as HitState;
-            if(state.HitConfig != null && lastId != state.HitConfig.id)
+            try{ 
+                HitState state = character.CurrentState as HitState;
+                if(lastId != state.HitConfig.id)
+                {
+                    lastId = state.HitConfig.id;
+                    changeStateDir = true;
+                }
+            }
+            catch
             {
-                lastId = state.HitConfig.id;
-                changeStateDir = true;
+                Debug.Log("can't load hit");
             }
         }
         else if (lastId != 0){
@@ -134,7 +141,6 @@ public class Animator : MonoBehaviour
             changeStateDir = false;
             
             actualAnim = allAnim.Get(lastState, direction, lastId);
-            Debug.Log(lastState + " " + direction + " " + lastId);
             change = true;
         }
         if(!change) change = actualAnim.Next(character.CurrentState.percentProgress);

@@ -24,7 +24,7 @@ public class CharacterAnimMap
         Add(new AnimSpritePos("Run", Direction.LEFT, 0, 38, 4));
 
         Add(new AnimSpritePos("Hit", Direction.BOTTOM, 0, 6, 4));
-        Add(new AnimSpritePos("Hit", Direction.BOTTOM, 1, 9, 3));
+        Add(new AnimSpritePos("Hit", Direction.BOTTOM, 1, new int[] {9, 10, 11, 6}));
         Add(new AnimSpritePos("Hit", Direction.BOTTOM, 2, 6, 4));
     }
     public bool Add(AnimSpritePos anim)
