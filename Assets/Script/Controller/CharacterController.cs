@@ -85,7 +85,7 @@ public class CharacterController : SimpleController
     {
         if (joystick)
         {
-            if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D))
+            if (!Input.GetKey(InputConfig.Top) && !Input.GetKey(InputConfig.Bottom) && !Input.GetKey(InputConfig.Left) && !Input.GetKey(InputConfig.Right))
             {
                 move.x = Input.GetAxis("Horizontal");
                 move.y = Input.GetAxis("Vertical");

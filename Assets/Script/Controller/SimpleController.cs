@@ -11,11 +11,15 @@ public class SimpleController : MonoBehaviour
     public int LIFE;
     protected int life;
     public bool left = false;
+   
     
     protected Vector2 move;
     public Vector2 Move { get => move; set => move = value; }
     public State CurrentState { get => currentState; set => currentState = value; }
     public int Life { get => life; set => life = value; }
+
+    public Node nearNode;
+    public float distance;
 
     public GameObject GetWeapon()
     {

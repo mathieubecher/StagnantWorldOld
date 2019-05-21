@@ -8,6 +8,7 @@ TagManager:
   - Invulnerable
   - Hit
   - Shield
+  - Node
   layers:
   - Default
   - TransparentFX
@@ -22,8 +23,8 @@ TagManager:
   - Hit
   - Shield
   - Invulnarable
-  - 
-  - 
+  - Node
+  - Wall
   - 
   - 
   - 

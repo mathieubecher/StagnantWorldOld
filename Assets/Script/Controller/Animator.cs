@@ -28,7 +28,6 @@ public class Animator : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         texture = new Texture2D(character.spritebase.width, character.spritebase.height);
         texture.filterMode = FilterMode.Point;
-        Debug.Log(texture.mipmapCount);
         LoadNude();
         TakeSprite(0);
         allAnim = new CharacterAnimMap();
@@ -40,7 +39,6 @@ public class Animator : MonoBehaviour
     void Update()
     {
         character.CurrentState.AnimProgress();
-        //Debug.Log(character.CurrentState.GetName() + " " + character.CurrentState.percentProgress);
         UpdateDirection();
         UpdateSprite();
         
@@ -59,14 +57,10 @@ public class Animator : MonoBehaviour
 
     public void LoadNude()
     {
-       
-        int mipCount = Mathf.Min(3, character.spritebase.mipmapCount);
 
-        for (int mip = 0; mip < mipCount; ++mip)
-        {
-            Color[] baseSprite = character.spritebase.GetPixels(mip);
-            texture.SetPixels(baseSprite, mip);
-        }
+        Color[] baseSprite = character.spritebase.GetPixels();
+        texture.SetPixels(baseSprite);
+
         texture.Apply(false);
         
         if (character.pants != null) LoadSprite(character.pants.texture);
@@ -82,19 +76,16 @@ public class Animator : MonoBehaviour
     {
         int mipCount = Mathf.Min(textureAdd.mipmapCount, texture.mipmapCount);
 
-        for (int mip = 0; mip < mipCount; ++mip)
+        Color[] finalSprite = texture.GetPixels();
+        Color[] textureSprite = textureAdd.GetPixels();
+        for (int i = 0; i < finalSprite.Length; ++i)
         {
-            Color[] finalSprite = texture.GetPixels(mip);
-            Color[] textureSprite = textureAdd.GetPixels(mip);
-            for (int i = 0; i < finalSprite.Length; ++i)
-            {
-                if (textureSprite[i].a > 0)
-                    finalSprite[i] = textureSprite[i];
-                else
-                    finalSprite[i] = finalSprite[i];
-            }
-            texture.SetPixels(finalSprite, mip);
+            if (textureSprite[i].a > 0)
+                finalSprite[i] = textureSprite[i];
+            else
+                finalSprite[i] = finalSprite[i];
         }
+        texture.SetPixels(finalSprite);
         texture.Apply(false);
     }
 
