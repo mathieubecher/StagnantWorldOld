@@ -32,6 +32,7 @@ public class Node : MonoBehaviour
         else if(!finishReplace){
             Destroy(GetComponent<Rigidbody2D>());
             VerifyNeighbours();
+            finishReplace = true;
         }
 
         if (isClose)
