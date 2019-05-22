@@ -365,22 +365,22 @@ PrefabInstance:
     - target: {fileID: 2931310981392021453, guid: f04e0d6933fd9e947829232d0c728075,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -2.05
+      value: -2.31
       objectReference: {fileID: 0}
     - target: {fileID: 2931310981392021453, guid: f04e0d6933fd9e947829232d0c728075,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -3.925
+      value: -4.26
       objectReference: {fileID: 0}
     - target: {fileID: 2931310981392021453, guid: f04e0d6933fd9e947829232d0c728075,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 3.804
+      value: 7.199
       objectReference: {fileID: 0}
     - target: {fileID: 2931310981392021453, guid: f04e0d6933fd9e947829232d0c728075,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 3.875
+      value: 6.27
       objectReference: {fileID: 0}
     - target: {fileID: 2931310981392021453, guid: f04e0d6933fd9e947829232d0c728075,
         type: 3}
@@ -1098,11 +1098,11 @@ Camera:
   far clip plane: 1000
   field of view: 19
   orthographic: 1
-  orthographic size: 3.18
+  orthographic size: 1.63
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 24375
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

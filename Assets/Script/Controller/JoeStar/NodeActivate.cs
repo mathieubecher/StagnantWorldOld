@@ -10,7 +10,7 @@ public class NodeActivate : MonoBehaviour
     {
         if (!other.isTrigger && other.tag == "Character")
         {
-            Debug.Log("enter");
+            //Debug.Log("enter");
             node.toolCollide = other;
             node.isClose = true;
             node.ChangeDetectionColor();

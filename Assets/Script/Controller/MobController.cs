@@ -61,13 +61,13 @@ public class MobController : CharacterController
             }
             else if (distance < speed/50)
             {
-                Debug.Log("less than max move");
+                //Debug.Log("less than max move");
                 transform.position += new Vector3(move.x, move.y);
                 move = Vector3.zero;
 
             }
             else move = move * speed / distance;
-            Debug.Log(Node.distance / (float)10);
+            //Debug.Log(Node.distance / (float)10);
         }
         else
         {
