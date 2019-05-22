@@ -7,7 +7,7 @@ public class JoeStarState : IEquatable<JoeStarState>
 {
     public Node node;
     public float distance;
-    public JoeStarState parent;
+    public JoeStarState parent = null;
 
     public JoeStarState(JoeStarState parent, Node n,Vector3 goTo)
     {
@@ -50,7 +50,8 @@ public class JoeStarState : IEquatable<JoeStarState>
     }
     public Node GetLastNode()
     {
-        if (parent != null) return parent.GetLastNode();
+        if (parent== this) return node;
+        else if (parent != null) return parent.GetLastNode();
         else return node;
     }
     public void Next()

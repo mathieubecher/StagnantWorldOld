@@ -42,18 +42,19 @@ public class MobController : CharacterController
         }
         else move = target - transform.position;
 
-        float distance = (float)Math.Sqrt(Math.Pow(move.x, 2) + Math.Pow(move.y, 2));
+        float distance = move.magnitude;
 
         if (distance < 0.01f)
         {
             if (joestar != null && joestar.parent != null && joestar.parent.parent == null) joestar = null;
-            else if (joestar != null)
+            else if (joestar != null && joestar.parent != null)
             {
                 joestar.Next();
                 DetectMoveInput();
             }
+            else joestar = null;
         }
-        else if (distance < Node.distance/(float)10)
+        else if (distance < speed)
         {
             Debug.Log("less than max move");
             transform.position += new Vector3(move.x, move.y);

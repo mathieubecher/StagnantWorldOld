@@ -39,6 +39,7 @@ public class NavMesh : MonoBehaviour
                     n.transform.localPosition = new Vector2(x * nodeDistance + ((y % 2 == 0) ? 0 : nodeDistance / 2), y * nodeDistance / 2);
                     Node.distance = nodeDistance;
                     n.GetComponent<CircleCollider2D>().radius = radiusCollider;
+                    n.transform.GetChild(0).GetComponent<CircleCollider2D>().radius = radiusCollider;
                     n.FindNeighBours();
                     allNodes.Add(n);
 
@@ -52,10 +53,6 @@ public class NavMesh : MonoBehaviour
         {
 
             if (allNodes[i].neighbours.Count == 0) Destroy(allNodes[i].transform.gameObject);
-            else
-            {
-
-            }
             ++i;
         }
 
