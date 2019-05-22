@@ -142,10 +142,15 @@ public class Node : MonoBehaviour
             {
                 if (hit.collider && hit.collider.gameObject.layer != LayerMask.NameToLayer("Node") || hit2.collider && hit2.collider.gameObject.layer != LayerMask.NameToLayer("Node"))
                 {
-                    if (!Remove(neighbours[i])) i++;
+                    if (!Remove(neighbours[i]))
+                    {
+                        Debug.DrawLine(this.transform.position, neighbours[i].transform.position, Color.white, 10);
+                        i++;
+                    }
                 }
                 else
                 {
+                    Debug.DrawLine(this.transform.position, neighbours[i].transform.position, Color.white, 10);
                     i++;
                 }
                 if (hit.collider && hit.collider.gameObject.layer != LayerMask.NameToLayer("Node"))
