@@ -8,6 +8,7 @@ public class MobController : HumanController
     public JoeStarState joestar;
     public bool isTarget = false;
     public float speed = 0.1f;
+    public Material SHADER;
     protected override void Start()
     {
         base.Start();
@@ -25,8 +26,8 @@ public class MobController : HumanController
             target.z = 0;
             joestar = JoeStar();
             joestar.Next();
-            //DrawLine.NewLine(target, joestar.node.transform.position, Color.red, 5);
-            //DrawRoute(joestar);
+            CreateLine(SHADER, target, joestar.node.transform.position);
+            DrawRoute(joestar);
 
         }
     }
@@ -45,14 +46,14 @@ public class MobController : HumanController
         float distance = move.magnitude;
         if (joestar != null || distance > 0.01f)
         {
-
-        
             if (distance < 0.01f)
             {
                 if (joestar != null && joestar.parent != null && joestar.parent.parent == null) joestar = null;
                 else if (joestar != null && joestar.parent != null)
                 {
-                    joestar = JoeStar();
+                    joestar = JoeStar(joestar.GetLastNode());
+                    CreateLine(SHADER, target, joestar.node.transform.position);
+                    DrawRoute(joestar);
                     joestar.Next();
                     DetectMoveInput();
                 }
@@ -74,13 +75,14 @@ public class MobController : HumanController
         }
     }
 
-    private JoeStarState JoeStar()
+    private JoeStarState JoeStar(Node lastnode = null)
     {
         Vector3 goTo = target;
 
         List<JoeStarState> treated = new List<JoeStarState>();
         List<JoeStarState> toTreat = new List<JoeStarState>();
         toTreat.Add(new JoeStarState(nearNode, goTo));
+        if (lastnode != null) treated.Add(new JoeStarState(lastnode, goTo));
 
         while (toTreat.Count > 0)
         {
@@ -121,15 +123,32 @@ public class MobController : HumanController
 
         if (state.parent != null)
         {
-            DrawLine.NewLine(state.node.transform.position, state.parent.node.transform.position, Color.red, 5);
+            CreateLine(SHADER,state.node.transform.position, state.parent.node.transform.position);
             DrawRoute(state.parent);
         }
         else
         {
-            DrawLine.NewLine(state.node.transform.position, transform.position, Color.red, 5);
+            CreateLine(SHADER, state.node.transform.position, transform.position);
         }
     }
 
+    public void CreateLine(Material shader,Vector3 start, Vector3 end)
+    {
+        float lineWidth = 0.05f;
+        Vector3[] positions = new Vector3[2];
+        positions[0] = start;
+        positions[1] = end;
 
+        GameObject line = new GameObject();
+        //myLine.transform.position = start;
+        line.AddComponent<LineRenderer>();
+        LineRenderer lineRender = line.GetComponent<LineRenderer>();
+        lineRender.material.color = Color.white;
+        lineRender.SetColors(Color.white, Color.white);
+        lineRender.SetWidth(lineWidth, lineWidth);
+        lineRender.SetPositions(positions);
+        lineRender.material = shader;
+        GameObject.Destroy(lineRender, 1f);
+    }
 }
 

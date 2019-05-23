@@ -17,8 +17,7 @@ public class Node : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-
+        
     }
 
     // Update is called once per frame
@@ -29,6 +28,7 @@ public class Node : MonoBehaviour
             time += Time.deltaTime;
             GetComponent<Rigidbody2D>().velocity = Vector3.zero;
         }
+
         else if(!finishReplace){
             Destroy(GetComponent<Rigidbody2D>());
             VerifyNeighbours();
@@ -37,10 +37,7 @@ public class Node : MonoBehaviour
 
         if (isClose)
         {
-             
             float distance = activate.GetComponent<Collider2D>().Distance(toolCollide).distance;
-
-
             if (distance > 0)
             {
                 toolCollide = null;
@@ -129,9 +126,8 @@ public class Node : MonoBehaviour
     public void VerifyNeighbours()
     {
         int i = 0;
-        int nboccur = 0;
         int max = neighbours.Count;
-        while (i<neighbours.Count && nboccur<max)
+        while (i<neighbours.Count)
         {
             Vector2 direction = neighbours[i].transform.position - transform.position;
             direction.Normalize();
@@ -144,25 +140,28 @@ public class Node : MonoBehaviour
                 {
                     if (!Remove(neighbours[i]))
                     {
-                        Debug.DrawLine(this.transform.position, neighbours[i].transform.position, Color.white, 10);
+                        //Debug.DrawLine(this.transform.position, neighbours[i].transform.position, Color.gray, 50);
                         i++;
+                    }
+                    else
+                    {
+
+                        Debug.DrawLine(transform.position + new Vector3(direction.y, -direction.x) * GetComponent<CircleCollider2D>().radius, transform.position + new Vector3(direction.y, -direction.x) * GetComponent<CircleCollider2D>().radius * 0.9f + new Vector3(direction.x, direction.y) * dist, Color.red, 50);
+                        Debug.DrawLine(transform.position - new Vector3(direction.y, -direction.x) * GetComponent<CircleCollider2D>().radius, transform.position - new Vector3(direction.y, -direction.x) * GetComponent<CircleCollider2D>().radius * 0.9f + new Vector3(direction.x, direction.y) * dist, Color.blue, 50);
                     }
                 }
                 else
                 {
-                    Debug.DrawLine(this.transform.position, neighbours[i].transform.position, Color.white, 10);
+                    Debug.DrawLine(this.transform.position, neighbours[i].transform.position, Color.white, 50);
                     i++;
                 }
-                if (hit.collider && hit.collider.gameObject.layer != LayerMask.NameToLayer("Node"))
-                    Debug.DrawLine(transform.position + new Vector3(direction.y, -direction.x) * GetComponent<CircleCollider2D>().radius, transform.position + new Vector3(direction.y, -direction.x) * GetComponent<CircleCollider2D>().radius * 0.9f + new Vector3(direction.x, direction.y) * dist, Color.red, 10);
-                if (hit2.collider && hit2.collider.gameObject.layer != LayerMask.NameToLayer("Node"))
-                    Debug.DrawLine(transform.position - new Vector3(direction.y, -direction.x) * GetComponent<CircleCollider2D>().radius, transform.position - new Vector3(direction.y, -direction.x) * GetComponent<CircleCollider2D>().radius * 0.9f + new Vector3(direction.x, direction.y) * dist, Color.blue, 10);
+                
             }
             else
             {
+                Debug.DrawLine(this.transform.position, neighbours[i].transform.position, Color.white, 50);
                 i++;
             }
-            ++nboccur;
         }
     }
     public bool Remove(Node neighbour)
@@ -170,6 +169,7 @@ public class Node : MonoBehaviour
         if (neighbours.Contains(neighbour))
         {
             neighbours.Remove(neighbour);
+            neighbour.Remove(this);
             return true;
         }
         else return false;

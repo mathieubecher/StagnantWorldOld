@@ -60,4 +60,17 @@ public class JoeStarState : IEquatable<JoeStarState>
         else if (parent != null && parent.parent == null) parent = null;
     }
 
+    public int Length(int i)
+    {
+        if (parent == this) return 1;
+        else if (parent != null) return parent.Length(i)+1;
+        else return 1;
+    }
+    public Vector3[] DrawLine(Vector3[] vector, int i)
+    {
+        vector[i] = node.transform.position;
+        if (parent == this) return vector;
+        else if (parent != null) return parent.DrawLine(vector,i+1);
+        else return vector;
+    }
 }

@@ -153,7 +153,9 @@ MonoBehaviour:
     type: 3}
   left: 0
   isTarget: 0
+  material: {fileID: 0}
   speed: 0.1
+  SHADER: {fileID: 2100000, guid: 9cdcdb74311b0f04fab8aa184222efd5, type: 2}
 --- !u!114 &4856836109549316075
 MonoBehaviour:
   m_ObjectHideFlags: 0
