@@ -8,7 +8,7 @@ public class RunState : State
 
     /*                              CONSTRUCTEUR                                */
     /*--------------------------------------------------------------------------*/
-    public RunState(SimpleController pc,Direction direction):base(pc,direction)
+    public RunState(HumanController pc,Direction direction):base(pc,direction)
     {
     }
 

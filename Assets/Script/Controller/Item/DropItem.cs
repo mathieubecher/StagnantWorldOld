@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DropItem : MonoBehaviour
 {
-    private CharacterController cc;
+    private HumanController cc;
     public ItemType type;
     public Texture2D texture;
     private Equipment equip;
@@ -27,6 +27,7 @@ public class DropItem : MonoBehaviour
                 else if (equip.type == ItemType.TORSO) cc.torso = equip;
                 (cc.gameObject.GetComponent(typeof(Animator)) as Animator).LoadNude() ;
                 Destroy(this.gameObject);
+                Destroy(this);
                 
             }
         }
@@ -36,7 +37,7 @@ public class DropItem : MonoBehaviour
     {
         if (c.tag == "Character" && !c.isTrigger)
         {
-            cc = c.gameObject.GetComponent(typeof(CharacterController)) as CharacterController;
+            cc = c.gameObject.GetComponent(typeof(HumanController)) as HumanController;
 
             
         }

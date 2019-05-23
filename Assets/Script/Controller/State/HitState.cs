@@ -18,7 +18,7 @@ public class HitState : State
 
     /*                              CONSTRUCTEUR                                */
     /*--------------------------------------------------------------------------*/
-    public HitState(SimpleController controller, Direction direction, HitConfig hit) : base(controller, direction)
+    public HitState(HumanController controller, Direction direction, HitConfig hit) : base(controller, direction)
     {
         this.hit = hit;
         time = hit.time + hit.beginTime;

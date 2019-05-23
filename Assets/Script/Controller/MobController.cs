@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-public class MobController : CharacterController
+public class MobController : HumanController
 {
     private Vector3 target;
     public JoeStarState joestar;
@@ -17,7 +17,6 @@ public class MobController : CharacterController
     {
         DetectMoveInput();
         CurrentState.Move();
-        CurrentState.UpdateAnim();
         CurrentState.Update();
         if (Input.GetMouseButtonDown(0) && isTarget)
         {

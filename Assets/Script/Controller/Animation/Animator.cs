@@ -5,11 +5,12 @@ using System;
 
 public class Animator : MonoBehaviour
 {
-    public Texture2D texture;
+    public Texture2D SPRITEBASE;
+    private Texture2D texture;
     public int width;
     public int height;
     private SpriteRenderer spriteRenderer;
-    private CharacterController character;
+    private HumanController character;
     public Sprite sprite;
     public Direction direction;
     private AnimSpritePos actualAnim;
@@ -24,9 +25,9 @@ public class Animator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        character = GetComponent(typeof(CharacterController)) as CharacterController;
+        character = GetComponent(typeof(HumanController)) as HumanController;
         spriteRenderer = GetComponent<SpriteRenderer>();
-        texture = new Texture2D(character.spritebase.width, character.spritebase.height);
+        texture = new Texture2D(SPRITEBASE.width, SPRITEBASE.height);
         texture.filterMode = FilterMode.Point;
         LoadNude();
         TakeSprite(0);
@@ -58,7 +59,7 @@ public class Animator : MonoBehaviour
     public void LoadNude()
     {
 
-        Color[] baseSprite = character.spritebase.GetPixels();
+        Color[] baseSprite = SPRITEBASE.GetPixels();
         texture.SetPixels(baseSprite);
 
         texture.Apply(false);
@@ -99,6 +100,7 @@ public class Animator : MonoBehaviour
            character.CurrentState.Direction == Direction.BOTTOM) direction = character.CurrentState.Direction;
         if (last != direction) changeStateDir = true;
     }
+
     private void UpdateSprite()
     {
         bool change = false;

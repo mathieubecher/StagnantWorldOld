@@ -41,16 +41,16 @@ public class HitWeapon : MonoBehaviour
         chargeHit = new HitConfig(0, 0.2f, -90, 90, 0, 0.3f);
     }
 
-    public virtual void LoadCharge(SimpleController controller, ChargeHitState state)
+    public virtual void LoadCharge(HumanController controller, ChargeHitState state)
     {
         Debug.Log("Commence à charger son coup");
     }
 
-    public virtual void ChargeHitUpdate(SimpleController controller)
+    public virtual void ChargeHitUpdate(HumanController controller)
     {
         controller.CurrentState.UpdateDirection();
     }
-    public virtual void ChargeHitEnd(SimpleController controller)
+    public virtual void ChargeHitEnd(HumanController controller)
     {
 
     }

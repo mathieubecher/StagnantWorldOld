@@ -145,14 +145,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6442c6f42ffa60441b70cb35efe69330, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LIFE: 5
+  nearNode: {fileID: 0}
+  distance: 0
   weapon: {fileID: 5468668855534673865, guid: a4bac58201917d94ca2d061b727a868a, type: 3}
   leftWeapon: {fileID: 8865689949577474066, guid: 6dc1e4ad1ae5151429dca14f02bef8ac,
     type: 3}
-  LIFE: 5
   left: 0
-  nearNode: {fileID: 0}
-  distance: 0
-  spritebase: {fileID: 2800000, guid: dad937e55e233ad4588c21b7374ebb22, type: 3}
+  isTarget: 0
+  speed: 0.1
 --- !u!114 &4856836109549316075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,7 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72672571c44c1dc429c7b21acd6b1c54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: dad937e55e233ad4588c21b7374ebb22, type: 3}
+  SPRITEBASE: {fileID: 2800000, guid: 08b0bc5bdc12deb4cb7dfe6961f32615, type: 3}
   width: 34
   height: 34
   sprite: {fileID: 0}

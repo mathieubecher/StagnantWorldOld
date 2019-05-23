@@ -11,7 +11,7 @@ public class HitShield : HitWeapon
         hits[0].beginScale = new Vector3(1, 0.5f, 1);
         hits[0].endScale = new Vector3(1, 0.5f, 1);
     }
-    public override void LoadCharge(SimpleController controller, ChargeHitState state)
+    public override void LoadCharge(HumanController controller, ChargeHitState state)
     {
         Debug.Log("commence à parer");
         state.weapon = Instantiate(controller.GetWeapon(), controller.transform);
@@ -21,12 +21,12 @@ public class HitShield : HitWeapon
 
     }
 
-    public override void ChargeHitUpdate(SimpleController controller)
+    public override void ChargeHitUpdate(HumanController controller)
     {
         ChargeHitState state = controller.CurrentState as ChargeHitState;
 
     }
-    public override void ChargeHitEnd(SimpleController controller)
+    public override void ChargeHitEnd(HumanController controller)
     {
         int i = 0;
         while (i < controller.transform.childCount && !controller.transform.GetChild(i).gameObject.name.Contains("Shield")) i++;

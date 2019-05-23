@@ -10,7 +10,7 @@ public class ChargeHitState : State
 
     /*                              CONSTRUCTEUR                                */
     /*--------------------------------------------------------------------------*/
-    public ChargeHitState(SimpleController controller, Direction direction) : base(controller, direction)
+    public ChargeHitState(HumanController controller, Direction direction) : base(controller, direction)
     {
         HitWeapon hitweapon = character.GetWeapon().GetComponent(typeof(HitWeapon)) as HitWeapon;
         hitweapon.LoadCharge(character,this);

@@ -3,32 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class State
+public class State : OriginalState
 {
-    protected SimpleController character;
-    protected Direction direction;
-    protected String nextState = "";
-    public float percentProgress = 0;
+    protected HumanController character;
     private float distance = 0;
-
     private Vector3 lastPos;
 
-    public Direction Direction { get => direction; set => direction = value; }
-
+    
     /*                              CONSTRUCTEUR                                */
     /*--------------------------------------------------------------------------*/
 
-    public State(SimpleController pc, Direction direction = Direction.BOTTOM)
+    public State(HumanController pc, Direction direction = Direction.BOTTOM):base(pc,direction)
     {
-        this.Direction = direction;
         character = pc;
         lastPos = pc.transform.localPosition;
-        
     }
 
     /*                                  MOVE                                    */
     /*--------------------------------------------------------------------------*/
-    public virtual void Move()
+    public override void Move()
     {
         character.GetComponent<Rigidbody2D>().velocity = new Vector3(character.Move.x, character.Move.y);
         UpdateDirection();
@@ -36,7 +29,7 @@ public class State
 
     /*                                  HIT                                     */
     /*--------------------------------------------------------------------------*/
-    public virtual void Hit()
+    public override void Hit()
     {
         HitWeapon hitweapon = character.GetWeapon().GetComponent(typeof(HitWeapon)) as HitWeapon;
         character.CurrentState = new HitState(character, Direction, hitweapon.Hits[0]);
@@ -44,28 +37,28 @@ public class State
 
     /*                               CHARGEHIT                                  */
     /*--------------------------------------------------------------------------*/
-    public virtual void ChargeHit()
+    public override void ChargeHit()
     {
         character.CurrentState = new ChargeHitState(character, Direction);
     }
 
     /*                                 DASH                                     */
     /*--------------------------------------------------------------------------*/
-    public virtual void Dash()
+    public override void Dash()
     {
         character.CurrentState = new DashState(character, Direction);
     }
 
     /*                              CHARGEDASH                                  */
     /*--------------------------------------------------------------------------*/
-    public virtual void ChargeDash()
+    public override void ChargeDash()
     {
         character.CurrentState = new RunState(character, Direction);
     }
 
     /*                                UPDATE                                    */
     /*--------------------------------------------------------------------------*/
-    public virtual void Update() {
+    public override void Update() {
 
         Vector3 movementSpeed = character.transform.localPosition - lastPos;
         distance += (float)Math.Sqrt(Math.Pow(movementSpeed.x, 2) + Math.Pow(movementSpeed.y, 2));
@@ -90,7 +83,7 @@ public class State
     }
 
     // Sort le nom de l'état
-    public virtual string GetName()
+    public override string GetName()
     {
         return (Math.Abs(character.Move.x) + Math.Abs(character.Move.y) > 0)?"Move":"Iddle";
     }
@@ -123,27 +116,6 @@ public class State
         if(last != direction) distance = 0;
 
         return Direction;
-    }
-
-    // Met à jour les animations du personnage en fonction de l'état et sa direction
-    public virtual void UpdateAnim()
-    {
-        /*
-        if (direction == Direction.TOP)
-            character.anim.SetInteger("Direction", 2);
-        else if (direction == Direction.BOTTOM)
-            character.anim.SetInteger("Direction", 0);
-        else if (direction == Direction.LEFT)
-            character.anim.SetInteger("Direction", 1);
-        else if (direction == Direction.RIGHT)
-            character.anim.SetInteger("Direction", 3);
-
-        character.anim.SetBool("Move", GetName() == "Move" && (Math.Abs(character.Move.x) + Math.Abs(character.Move.y) > 0));
-        character.anim.SetBool("Run", GetName() == "Run");
-        character.anim.SetBool("Dash", GetName() == "Dash");
-        character.anim.SetBool("Hit", GetName() == "Hit");
-        character.anim.SetBool("Iddle", !(GetName() == "Hit" || GetName() == "Move" && (Math.Abs(character.Move.x) + Math.Abs(character.Move.y) > 0) || GetName() == "Run" || GetName() == "Dash"));
-        */
     }
 
     // Fait tourner l'arme

@@ -12,7 +12,7 @@ public class DashState : State
 
     /*                              CONSTRUCTEUR                                */
     /*--------------------------------------------------------------------------*/
-    public DashState(SimpleController pc, Direction direction, float speed = 2.2f, float time = 0.25f, float idleTime = 0.15f) : base(pc, direction)
+    public DashState(HumanController pc, Direction direction, float speed = 2.2f, float time = 0.25f, float idleTime = 0.15f) : base(pc, direction)
     {
         this.speed = speed;
         this.time = time;

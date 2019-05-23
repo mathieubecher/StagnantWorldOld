@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class CharacterController : SimpleController
+public class CharacterController : HumanController
 {
     public bool joystick;
     public float activeX = 0;
@@ -11,12 +11,8 @@ public class CharacterController : SimpleController
     public float activeA = 0;
     public float activeB = 0;
 
-    public Texture2D spritebase;
-    
-    public Equipment helmet;
-    public Equipment pants;
-    public Equipment mitt;
-    public Equipment torso;
+
+
 
     protected override void Start()
     {
@@ -27,7 +23,6 @@ public class CharacterController : SimpleController
     {
         DetectMoveInput();
         CurrentState.Move();
-        CurrentState.UpdateAnim();
         CurrentState.Update();
 
         // Detect Hit
