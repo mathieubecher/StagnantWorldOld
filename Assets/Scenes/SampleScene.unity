@@ -1470,7 +1470,7 @@ GameObject:
   - component: {fileID: 658700378}
   - component: {fileID: 658700380}
   - component: {fileID: 658700379}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -1524,13 +1524,13 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 19
+  field of view: 26.991467
   orthographic: 1
-  orthographic size: 1.63
-  m_Depth: 0
+  orthographic size: 1.7560639
+  m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 24375
+    m_Bits: 21303
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -4333,7 +4333,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 97, y: 38.5}
+  m_AnchoredPosition: {x: 109, y: 53}
   m_SizeDelta: {x: 160, y: 31}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1991837583
@@ -4612,6 +4612,11 @@ PrefabInstance:
       propertyPath: texture
       value: 
       objectReference: {fileID: 2800000, guid: 08b0bc5bdc12deb4cb7dfe6961f32615, type: 3}
+    - target: {fileID: 1382260564156308871, guid: 693dc58a72cebf746a38c1988502dd44,
+        type: 3}
+      propertyPath: m_SpriteSortPoint
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 693dc58a72cebf746a38c1988502dd44, type: 3}
 --- !u!1001 &7406905099182959958
@@ -4685,6 +4690,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5784931020978733927, guid: 3b009d7fb882de64cb6162b870cf628b,
+        type: 3}
+      propertyPath: m_SpriteSortPoint
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b009d7fb882de64cb6162b870cf628b, type: 3}

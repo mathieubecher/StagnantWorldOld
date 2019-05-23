@@ -37,4 +37,9 @@ public class SimpleController : MonoBehaviour
     {
         move = Vector2.zero;
     }
+    protected virtual void Dead()
+    {
+        Destroy(this.gameObject);
+        Destroy(this);
+    }
 }

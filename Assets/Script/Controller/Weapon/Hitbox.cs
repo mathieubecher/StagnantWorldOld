@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Hitbox : MonoBehaviour
 {
-    public float damage = 1;
+    public int damage = 1;
     public GameObject weapon;
     // Start is called before the first frame update
     void Start()
@@ -23,8 +23,7 @@ public class Hitbox : MonoBehaviour
     {
         if(c.tag == "Character" && !c.isTrigger) {
             SimpleController cc = c.gameObject.GetComponent(typeof(SimpleController)) as SimpleController;
-            cc.Life -= 1;
-            Debug.Log(cc.Life + "/" + cc.LIFE);
+            cc.Life -= damage;
         }
     }
 }
