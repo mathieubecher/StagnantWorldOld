@@ -14,6 +14,7 @@ public class Node : MonoBehaviour
     public static float distance = 0.2f;
     private float time = 0;
     private bool finishReplace = false;
+
     // Start is called before the first frame update
     void Start()
     {

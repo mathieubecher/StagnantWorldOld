@@ -9,6 +9,7 @@ public class MobController : HumanController
     public bool isTarget = false;
     public float speed = 0.1f;
     public Material SHADER;
+    
     protected override void Start()
     {
         base.Start();
@@ -104,10 +105,22 @@ public class MobController : HumanController
                     {
                         treated.Add(next);
                     }
-                    if (!treated.Contains(next) && !toTreat.Contains(next))
+                    if (!treated.Contains(next) && !toTreat.Contains(next) )
                     {
                         toTreat.Add(next);
                     }
+                    /*
+                    else if (toTreat.Contains(next) && toTreat.Find(x => toTreat.Contains(x)).weight > next.weight)
+                    {
+                        toTreat.Remove(next);
+                        toTreat.Add(next);
+                    }
+                    else if (treated.Contains(next) && treated.Find(x => treated.Contains(x)).weight > next.weight)
+                    {
+                        treated.Remove(next);
+                        toTreat.Add(next);
+                    }
+                    */
                 }
             }
             toTreat.Sort(new JoeStarStateComparer());

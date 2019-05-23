@@ -8,16 +8,19 @@ public class JoeStarState : IEquatable<JoeStarState>
     public Node node;
     public float distance;
     public JoeStarState parent = null;
+    public int weight;
 
     public JoeStarState(JoeStarState parent, Node n,Vector3 goTo)
     {
         this.node = n;
         this.parent = parent;
+        weight = parent.weight + 1;
         CalculDistance(goTo);
     }
     public JoeStarState(Node n, Vector3 goTo)
     {
         this.node = n;
+        weight = 0;
         CalculDistance(goTo);
     }
     private void CalculDistance(Vector3 goTo)
