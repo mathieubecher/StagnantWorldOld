@@ -105,22 +105,22 @@ public class MobController : HumanController
                     {
                         treated.Add(next);
                     }
-                    if (!treated.Contains(next) && !toTreat.Contains(next) )
+                    else if (!treated.Contains(next) && !toTreat.Contains(next) )
                     {
                         toTreat.Add(next);
                     }
-                    /*
-                    else if (toTreat.Contains(next) && toTreat.Find(x => toTreat.Contains(x)).weight > next.weight)
+                    
+                    else if (toTreat.Contains(next) && toTreat.Find(x => x.node.id == next.node.id).weight > next.weight && !next.node.isClose)
                     {
                         toTreat.Remove(next);
                         toTreat.Add(next);
                     }
-                    else if (treated.Contains(next) && treated.Find(x => treated.Contains(x)).weight > next.weight)
+                    else if (treated.Contains(next) && treated.Find(x => x.node.id == next.node.id).weight > next.weight && !next.node.isClose)
                     {
                         treated.Remove(next);
                         toTreat.Add(next);
                     }
-                    */
+                    
                 }
             }
             toTreat.Sort(new JoeStarStateComparer());

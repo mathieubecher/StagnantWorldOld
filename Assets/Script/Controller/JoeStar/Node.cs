@@ -147,20 +147,20 @@ public class Node : MonoBehaviour
                     else
                     {
 
-                        Debug.DrawLine(transform.position + new Vector3(direction.y, -direction.x) * GetComponent<CircleCollider2D>().radius, transform.position + new Vector3(direction.y, -direction.x) * GetComponent<CircleCollider2D>().radius * 0.9f + new Vector3(direction.x, direction.y) * dist, Color.red, 50);
-                        Debug.DrawLine(transform.position - new Vector3(direction.y, -direction.x) * GetComponent<CircleCollider2D>().radius, transform.position - new Vector3(direction.y, -direction.x) * GetComponent<CircleCollider2D>().radius * 0.9f + new Vector3(direction.x, direction.y) * dist, Color.blue, 50);
+                        //Debug.DrawLine(transform.position + new Vector3(direction.y, -direction.x) * GetComponent<CircleCollider2D>().radius, transform.position + new Vector3(direction.y, -direction.x) * GetComponent<CircleCollider2D>().radius * 0.9f + new Vector3(direction.x, direction.y) * dist, Color.red, 50);
+                        //Debug.DrawLine(transform.position - new Vector3(direction.y, -direction.x) * GetComponent<CircleCollider2D>().radius, transform.position - new Vector3(direction.y, -direction.x) * GetComponent<CircleCollider2D>().radius * 0.9f + new Vector3(direction.x, direction.y) * dist, Color.blue, 50);
                     }
                 }
                 else
                 {
-                    Debug.DrawLine(this.transform.position, neighbours[i].transform.position, Color.white, 50);
+                    //Debug.DrawLine(this.transform.position, neighbours[i].transform.position, Color.white, 50);
                     i++;
                 }
                 
             }
             else
             {
-                Debug.DrawLine(this.transform.position, neighbours[i].transform.position, Color.white, 50);
+                //Debug.DrawLine(this.transform.position, neighbours[i].transform.position, Color.white, 50);
                 i++;
             }
         }

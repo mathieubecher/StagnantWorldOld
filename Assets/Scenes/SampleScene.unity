@@ -579,22 +579,22 @@ PrefabInstance:
     - target: {fileID: 2931310981392021453, guid: f04e0d6933fd9e947829232d0c728075,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -5.53
+      value: -5.353
       objectReference: {fileID: 0}
     - target: {fileID: 2931310981392021453, guid: f04e0d6933fd9e947829232d0c728075,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -3.11
+      value: -3.414
       objectReference: {fileID: 0}
     - target: {fileID: 2931310981392021453, guid: f04e0d6933fd9e947829232d0c728075,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 8.458
+      value: 8.099
       objectReference: {fileID: 0}
     - target: {fileID: 2931310981392021453, guid: f04e0d6933fd9e947829232d0c728075,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 8.558
+      value: 9.524
       objectReference: {fileID: 0}
     - target: {fileID: 2931310981392021453, guid: f04e0d6933fd9e947829232d0c728075,
         type: 3}
@@ -629,6 +629,11 @@ PrefabInstance:
     - target: {fileID: 8391582805424205157, guid: f04e0d6933fd9e947829232d0c728075,
         type: 3}
       propertyPath: nodeDistance
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8391582805424205157, guid: f04e0d6933fd9e947829232d0c728075,
+        type: 3}
+      propertyPath: ecart
       value: 0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -3612,7 +3617,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 1.21
+  orthographic size: 2.63
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
