@@ -10,6 +10,7 @@ public class JoeStarState : IEquatable<JoeStarState>
     public JoeStarState parent = null;
     public int weight;
 
+    // Constructor with parent
     public JoeStarState(JoeStarState parent, Node n,Vector3 goTo)
     {
         this.node = n;
@@ -17,18 +18,20 @@ public class JoeStarState : IEquatable<JoeStarState>
         weight = parent.weight + 1;
         CalculDistance(goTo);
     }
+    // Constructor without parent
     public JoeStarState(Node n, Vector3 goTo)
     {
         this.node = n;
         weight = 0;
         CalculDistance(goTo);
     }
+    // Calcul distance between node and destination
     private void CalculDistance(Vector3 goTo)
     {
         goTo.z = node.transform.position.z;
         distance = (float)Math.Abs(Vector3.Distance(goTo, node.transform.position));
     }
-
+    // Compare tow joestarstate
     public bool Equals(JoeStarState other)
     {
         if (other == null)
@@ -51,29 +54,25 @@ public class JoeStarState : IEquatable<JoeStarState>
         else
             return Equals(joestar);
     }
+    // Recursivly find last node
     public Node GetLastNode()
     {
         if (parent== this) return node;
         else if (parent != null) return parent.GetLastNode();
         else return node;
     }
+    // Delete last node
     public void Next()
     {
         if (parent != null && parent.parent != null) parent.Next();
         else if (parent != null && parent.parent == null) parent = null;
     }
 
+    // Get queue length
     public int Length(int i)
     {
         if (parent == this) return 1;
         else if (parent != null) return parent.Length(i)+1;
         else return 1;
-    }
-    public Vector3[] DrawLine(Vector3[] vector, int i)
-    {
-        vector[i] = node.transform.position;
-        if (parent == this) return vector;
-        else if (parent != null) return parent.DrawLine(vector,i+1);
-        else return vector;
     }
 }

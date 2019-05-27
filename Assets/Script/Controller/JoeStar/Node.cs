@@ -8,22 +8,17 @@ public class Node : MonoBehaviour
     private static int idinc = 0;
     public LayerMask nodeLayer;
     public List<Node> neighbours;
-    public Collider2D toolCollide;
+    public List<Collider2D> toolCollides;
     public bool isClose = false;
     public NodeActivate activate;
     public static float distance = 0.2f;
     private float time = 0;
     private bool finishReplace = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
     void Update()
     {
+        // Wait 5 seconds to destroy rigidbody and definitly freeze node
         if (time < 5 && !finishReplace)
         {
             time += Time.deltaTime;
@@ -32,41 +27,61 @@ public class Node : MonoBehaviour
 
         else if(!finishReplace){
             Destroy(GetComponent<Rigidbody2D>());
+            // Try to verify if its neighbours are allways connected to it
             VerifyNeighbours();
             finishReplace = true;
         }
 
+        // If someone walk on the node
         if (isClose)
         {
-            float distance = activate.GetComponent<Collider2D>().Distance(toolCollide).distance;
-            if (distance > 0)
+            int i = 0;
+            while (i < toolCollides.Count)
             {
-                toolCollide = null;
+                Collider2D toolCollide = toolCollides[i];
+                // Distance between two collider
+                float distance = activate.GetComponent<Collider2D>().Distance(toolCollide).distance;
+                // character exit the node
+                if (distance > 0)
+                {
+                    toolCollides.Remove(toolCollide);
+                    
+                }
+                // character is on the node yet
+                else
+                {
+                    SimpleController character = toolCollide.gameObject.GetComponent(typeof(SimpleController)) as SimpleController;
+                    if (character.nearNode != null && character.nearNode.id == id) character.distance = distance;
+                    else if (character.distance > distance)
+                    {
+                        character.distance = distance;
+                        character.nearNode = this;
+                    }
+                    ++i;
+                }
+            }
+            if(toolCollides.Count == 0)
+            {
                 isClose = false;
                 ChangeDetectionColor();
             }
-            else
-            {
-                SimpleController character = toolCollide.gameObject.GetComponent(typeof(SimpleController)) as SimpleController;
-                if (character.nearNode != null && character.nearNode.id == id) character.distance = distance;
-                else if (character.distance > distance)
-                {
-                    character.distance = distance;
-                    character.nearNode = this;
-                }
-            }
+            
         }
+        // If node is open, change his color (for debug)
         if(!isClose) ChangeDetectionColor();
     }
 
+    // Call raycast for all direction to find neighbour
     public void FindNeighBours()
     {
         NavMesh parent = transform.parent.GetComponent(typeof(NavMesh)) as NavMesh;
         neighbours = new List<Node>();
+        // Set id for this node (to compare it with other)
         id = ++idinc;
         
+        // Desactivate his own collider (else raycast stoped on it)
         GetComponent<Collider2D>().enabled = false;
-
+        // Findneighbour for all direction
         FindNeighBour(Vector2.up, parent.nodeDistance);
         FindNeighBour(Vector2.down, parent.nodeDistance);
         FindNeighBour(Vector2.left, parent.nodeDistance);
@@ -75,17 +90,19 @@ public class Node : MonoBehaviour
         FindNeighBour(Vector2.up + Vector2.right, parent.nodeDistance);
         FindNeighBour(Vector2.down + Vector2.left, parent.nodeDistance);
         FindNeighBour(Vector2.down + Vector2.right, parent.nodeDistance);
-        
+        // Activate his own collider
         GetComponent<Collider2D>().enabled = true;
 
     }
     public void FindNeighBour(Vector2 direction, float distance)
     {
+        // Create raycast
         RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distance, NavMesh.layermask);
         direction.Normalize();
-        //Debug.DrawLine(transform.position, new Vector2(transform.position.x,transform.position.y)+direction*distance, Color.red, 10);
+        // If collide
         if (hit.collider)
         {
+            // Define if it's a node and add it to neighbour
             try
             {
                 Node neighbour = hit.collider.gameObject.GetComponent(typeof(Node)) as Node;
@@ -100,7 +117,7 @@ public class Node : MonoBehaviour
     }
     public bool AddNeighBour(Node neighbour)
     {
-
+        // if node isn't in neighbours yet, add it
         if (neighbour.id != this.id)
         {
             int i = 0;
@@ -112,11 +129,12 @@ public class Node : MonoBehaviour
         }
         else
         {
-            Debug.Log("C'est toi");
+            Debug.Log("node try to add itself");
             return false;
         }
 
     }
+    // Swap color (for debug)
     public void ChangeDetectionColor()
     {
         if(isClose)
@@ -124,6 +142,7 @@ public class Node : MonoBehaviour
         else GetComponent<SpriteRenderer>().color = Color.white;
     }
 
+    // Verify if neighbours are still connected to it
     public void VerifyNeighbours()
     {
         int i = 0;
@@ -165,6 +184,7 @@ public class Node : MonoBehaviour
             }
         }
     }
+    // remove two relations with neighbour
     public bool Remove(Node neighbour)
     {
         if (neighbours.Contains(neighbour))
