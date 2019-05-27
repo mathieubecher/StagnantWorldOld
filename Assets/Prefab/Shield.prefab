@@ -16,6 +16,7 @@ MonoBehaviour:
   name: shield
   chargeMove: 0.5
   texture: {fileID: 0}
+  damage: 0
 --- !u!1001 &3525719622105051099
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -125,7 +126,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1002240960263598134, guid: a4bac58201917d94ca2d061b727a868a, type: 3}
-    - {fileID: 3171120490992548600, guid: a4bac58201917d94ca2d061b727a868a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a4bac58201917d94ca2d061b727a868a, type: 3}
 --- !u!1 &8865689949577474066 stripped
 GameObject:

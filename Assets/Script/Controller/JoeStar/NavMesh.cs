@@ -10,6 +10,7 @@ public class NavMesh : MonoBehaviour
     private Rect surface;
     // Mask for raycast
     public static int layermask;
+    public static int obstacle;
     // Distance between node
     public float nodeDistance = 0.2f;
 
@@ -17,6 +18,7 @@ public class NavMesh : MonoBehaviour
     {
         // Create layer mask for raycast
         layermask = LayerMask.GetMask("Node", "Wall");
+        obstacle = LayerMask.GetMask("Wall", "Character");
         // Get size of the navmesh
         surface = GetComponent<RectTransform>().rect;
         // Create all node in surface

@@ -10,6 +10,7 @@ TagManager:
   - Shield
   - Node
   - Hitbox
+  - IA
   layers:
   - Default
   - TransparentFX

@@ -26,9 +26,13 @@ public class MobController : HumanController
             target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             target.z = 0;
             joestar = JoeStar();
-            joestar.Next();
-            CreateLine(SHADER, target, joestar.node.transform.position);
-            DrawRoute(joestar);
+            
+            if (joestar != null)
+            {
+                CreateLine(SHADER, target, joestar.node.transform.position);
+                DrawRoute(joestar);
+                joestar.Next();
+            }
 
         }
     }
@@ -52,23 +56,27 @@ public class MobController : HumanController
                 if (joestar != null && joestar.parent != null && joestar.parent.parent == null) joestar = null;
                 else if (joestar != null && joestar.parent != null)
                 {
+                    
                     joestar = JoeStar(joestar.GetLastNode());
-                    CreateLine(SHADER, target, joestar.node.transform.position);
-                    DrawRoute(joestar);
-                    joestar.Next();
+                    if (joestar != null)
+                    {
+                        CreateLine(SHADER, target, joestar.node.transform.position);
+                        DrawRoute(joestar);
+                        joestar.Next();
+                    }
+                    
                     DetectMoveInput();
+                    
                 }
                 else joestar = null;
             }
-            else if (distance < speed/50)
+            else if (distance < speed * Time.deltaTime)
             {
-                //Debug.Log("less than max move");
                 transform.position += new Vector3(move.x, move.y);
                 move = Vector3.zero;
 
             }
             else move = move * speed / distance;
-            //Debug.Log(Node.distance / (float)10);
         }
         else
         {
@@ -80,6 +88,11 @@ public class MobController : HumanController
     {
         Vector3 goTo = target;
 
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, goTo - transform.position, (goTo - transform.position).magnitude, LayerMask.GetMask("Wall"));
+        if (!hit.collider)
+        {
+            return null;
+        }
         List<JoeStarState> treated = new List<JoeStarState>();
         List<JoeStarState> toTreat = new List<JoeStarState>();
         toTreat.Add(new JoeStarState(nearNode, goTo));
@@ -87,10 +100,13 @@ public class MobController : HumanController
 
         while (toTreat.Count > 0)
         {
-
+            
             JoeStarState min = toTreat[0];
             toTreat.Remove(min);
             treated.Add(min);
+
+            // ATTENTION A VIRER DES QUE LE A* MARCHE VRAIMENT. ENERGIEVORE, MAIS TELLEMENT COOL
+            // if (min.parent !=null) Debug.DrawLine(min.node.transform.position, min.parent.node.transform.position, Color.white, 0.5f);
 
             foreach (Node n in min.node.neighbours)
             {
@@ -110,7 +126,7 @@ public class MobController : HumanController
                         toTreat.Add(next);
                     }
                     
-                    else if (toTreat.Contains(next) && toTreat.Find(x => x.node.id == next.node.id).weight > next.weight && !next.node.isClose)
+                    else if (toTreat.Contains(next) && toTreat.Find(x => x.node.id == next.node.id).GetEuristic() > next.GetEuristic() && !next.node.isClose)
                     {
                         toTreat.Remove(next);
                         toTreat.Add(next);
@@ -120,6 +136,7 @@ public class MobController : HumanController
                         treated.Remove(next);
                         toTreat.Add(next);
                     }
+                    
                     
                 }
             }

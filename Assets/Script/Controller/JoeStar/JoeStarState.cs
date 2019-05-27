@@ -9,6 +9,7 @@ public class JoeStarState : IEquatable<JoeStarState>
     public float distance;
     public JoeStarState parent = null;
     public int weight;
+    public float origindistance = 0;
 
     // Constructor with parent
     public JoeStarState(JoeStarState parent, Node n,Vector3 goTo)
@@ -16,6 +17,7 @@ public class JoeStarState : IEquatable<JoeStarState>
         this.node = n;
         this.parent = parent;
         weight = parent.weight + 1;
+        origindistance += (float)Math.Abs(Vector3.Distance(n.transform.position,parent.node.transform.position));
         CalculDistance(goTo);
     }
     // Constructor without parent
@@ -53,6 +55,10 @@ public class JoeStarState : IEquatable<JoeStarState>
             return false;
         else
             return Equals(joestar);
+    }
+    public float GetEuristic()
+    {
+        return distance + Node.distance * weight;
     }
     // Recursivly find last node
     public Node GetLastNode()

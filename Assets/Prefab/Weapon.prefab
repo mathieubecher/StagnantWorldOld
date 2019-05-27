@@ -48,6 +48,7 @@ MonoBehaviour:
   name: sword
   chargeMove: 0
   texture: {fileID: 2800000, guid: c4058f5766c47444896025292358ee2e, type: 3}
+  damage: 1
 --- !u!1 &5468668857234918765
 GameObject:
   m_ObjectHideFlags: 0

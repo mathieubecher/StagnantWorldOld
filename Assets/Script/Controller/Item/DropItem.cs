@@ -9,6 +9,7 @@ public class DropItem : MonoBehaviour
     public ItemType type;
     public Texture2D texture;
     public Item item;
+    private bool first = true;
 
     void Start()
     {
@@ -21,8 +22,9 @@ public class DropItem : MonoBehaviour
             if (gameObject.GetComponent<Collider2D>().Distance(cc.gameObject.GetComponent<Collider2D>()).distance>0) {
                 cc = null;
             }
-            if (Input.GetKeyDown(InputConfig.Interact) || Input.GetKeyDown(KeyCode.JoystickButton1))
-            { 
+            if (Input.GetKeyDown(InputConfig.Interact) || Input.GetKeyDown(KeyCode.JoystickButton1) && first)
+            {
+                first = false;
                 if(item is Equipment) {
                     Equipment equip = item as Equipment;
                     if (equip.type == ItemType.HELMET) cc.helmet.equip = equip;
@@ -40,7 +42,7 @@ public class DropItem : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D c)
     {
-        if (c.tag == "Character" && !c.isTrigger)
+        if ((c.tag == "Character" || c.tag == "IA") && !c.isTrigger)
         {
             cc = c.gameObject.GetComponent(typeof(HumanController)) as HumanController;
 

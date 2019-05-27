@@ -33,9 +33,10 @@ public class Node : MonoBehaviour
         }
 
         // If someone walk on the node
-        if (isClose)
+        if (toolCollides.Count>0)
         {
             int i = 0;
+            bool isPlayer = false;
             while (i < toolCollides.Count)
             {
                 Collider2D toolCollide = toolCollides[i];
@@ -50,6 +51,7 @@ public class Node : MonoBehaviour
                 // character is on the node yet
                 else
                 {
+                    if (toolCollide.tag == "Character") isPlayer = true;
                     SimpleController character = toolCollide.gameObject.GetComponent(typeof(SimpleController)) as SimpleController;
                     if (character.nearNode != null && character.nearNode.id == id) character.distance = distance;
                     else if (character.distance > distance)
@@ -60,7 +62,7 @@ public class Node : MonoBehaviour
                     ++i;
                 }
             }
-            if(toolCollides.Count == 0)
+            if(toolCollides.Count == 0 || !isPlayer)
             {
                 isClose = false;
                 ChangeDetectionColor();

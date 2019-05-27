@@ -11,6 +11,7 @@ public class HitWeapon : MonoBehaviour
     protected HitConfig chargeHit;
     public float chargeMove = 0;
     public Texture2D texture;
+    public int damage = 0;
 
     public List<HitConfig> Hits { get => hits; set => hits = value; }
     public HitConfig ChargeHit { get => chargeHit; set => chargeHit = value; }
@@ -19,7 +20,11 @@ public class HitWeapon : MonoBehaviour
     {
         LoadAllHit();
     }
-
+    void Start()
+    {
+        Debug.Log("change hitbox");
+        (hitbox.GetComponent(typeof(Hitbox)) as Hitbox).damage = this.damage;
+    }
     
     public virtual void LoadAllHit()
     {

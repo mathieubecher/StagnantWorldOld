@@ -8,11 +8,11 @@ public class NodeActivate : MonoBehaviour
     // Desactivate node when someone walk on it
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.isTrigger && other.tag == "Character")
+        if (!other.isTrigger && (other.tag == "Character" || other.tag == "IA"))
         {
             //Debug.Log("enter");
             node.toolCollides.Add(other);
-            node.isClose = true;
+            if(other.tag=="Character") node.isClose = true;
             node.ChangeDetectionColor();
         }
     }
