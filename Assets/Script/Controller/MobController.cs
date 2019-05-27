@@ -29,8 +29,8 @@ public class MobController : HumanController
             
             if (joestar != null)
             {
-                CreateLine(SHADER, target, joestar.node.transform.position);
-                DrawRoute(joestar);
+                //CreateLine(SHADER, target, joestar.node.transform.position);
+                //DrawRoute(joestar);
                 joestar.Next();
             }
 
@@ -60,8 +60,8 @@ public class MobController : HumanController
                     joestar = JoeStar(joestar.GetLastNode());
                     if (joestar != null)
                     {
-                        CreateLine(SHADER, target, joestar.node.transform.position);
-                        DrawRoute(joestar);
+                        //CreateLine(SHADER, target, joestar.node.transform.position);
+                        //DrawRoute(joestar);
                         joestar.Next();
                     }
                     
@@ -89,7 +89,7 @@ public class MobController : HumanController
         Vector3 goTo = target;
 
         RaycastHit2D hit = Physics2D.Raycast(Vector3.Lerp(transform.position, goTo, 0.2f / (goTo - transform.position).magnitude), goTo - transform.position, (goTo - transform.position).magnitude, NavMesh.obstacle);
-        Debug.DrawLine(Vector3.Lerp(transform.position, goTo, 0.2f / (goTo - transform.position).magnitude), goTo, Color.white, 0.5f);
+        //Debug.DrawLine(Vector3.Lerp(transform.position, goTo, 0.2f / (goTo - transform.position).magnitude), goTo, Color.white, 0.5f);
         if (!hit.collider)
         {
             return null;

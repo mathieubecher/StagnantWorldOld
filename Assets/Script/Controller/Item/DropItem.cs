@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class DropItem : MonoBehaviour
 {
-    private HumanController cc;
+    protected HumanController cc;
     public string name;
     public ItemType type;
     public Texture2D texture;
     public Item item;
-    private bool first = true;
+    protected bool first = true;
 
-    void Start()
+    protected virtual void Start()
     {
 
         item = new Equipment(name,type,GetComponent<SpriteRenderer>().sprite, texture);
     }
-    void Update()
+    protected virtual void Update()
     {
         if(cc != null) {
             if (gameObject.GetComponent<Collider2D>().Distance(cc.gameObject.GetComponent<Collider2D>()).distance>0) {

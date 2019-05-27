@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum ItemType
 {
-    HELMET, PANTS, MITT, TORSO
+    HELMET, PANTS, MITT, TORSO, LEFT, RIGHT
 }
 
 public class Item
