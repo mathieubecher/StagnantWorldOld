@@ -18,7 +18,7 @@ public class NavMesh : MonoBehaviour
     {
         // Create layer mask for raycast
         layermask = LayerMask.GetMask("Node", "Wall");
-        obstacle = LayerMask.GetMask("Wall", "Character");
+        obstacle = LayerMask.GetMask("Wall", "Character","Player");
         // Get size of the navmesh
         surface = GetComponent<RectTransform>().rect;
         // Create all node in surface

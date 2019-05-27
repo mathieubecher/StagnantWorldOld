@@ -88,7 +88,8 @@ public class MobController : HumanController
     {
         Vector3 goTo = target;
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, goTo - transform.position, (goTo - transform.position).magnitude, LayerMask.GetMask("Wall"));
+        RaycastHit2D hit = Physics2D.Raycast(Vector3.Lerp(transform.position, goTo, 0.2f / (goTo - transform.position).magnitude), goTo - transform.position, (goTo - transform.position).magnitude, NavMesh.obstacle);
+        Debug.DrawLine(Vector3.Lerp(transform.position, goTo, 0.2f / (goTo - transform.position).magnitude), goTo, Color.white, 0.5f);
         if (!hit.collider)
         {
             return null;
