@@ -181,7 +181,7 @@ public class HitState : State
     private void deleteWeapon()
     {
         int i = 0;
-        while (i < character.transform.childCount && (character.transform.GetChild(i).gameObject.name.Contains("life") || character.transform.GetChild(i).gameObject.name.Contains("Camera"))) i++;
+        while (i < character.transform.childCount && character.transform.GetChild(i).gameObject.tag != "Hitbox") i++;
         if (i < character.transform.childCount)
             MonoBehaviour.Destroy(character.transform.GetChild(i).gameObject);
         delete = true;

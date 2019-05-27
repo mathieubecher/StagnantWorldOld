@@ -16,7 +16,7 @@ public class Animator : MonoBehaviour
     private AnimSpritePos actualAnim;
     private CharacterAnimMap allAnim;
 
-    private bool changeStateDir = false;
+    public bool changeStateDir = false;
     private string lastState = "";
     private int lastId = 0;
 
@@ -54,6 +54,15 @@ public class Animator : MonoBehaviour
 
         sprite = Sprite.Create(texture, new Rect(x * width, ((texture.height / height) - (y + 1)) * height, width, height), new Vector2(0.49f, 0.35f), 50f);
         spriteRenderer.sprite = sprite;
+        if (character.pants.equip != null) LoadSprite(character.pants,x,y);
+        if (character.torso.equip != null) LoadSprite(character.torso, x, y);
+        if (character.helmet.equip != null) LoadSprite(character.helmet, x, y);
+        if (character.mitt.equip != null) LoadSprite(character.mitt, x, y);
+    }
+
+    public void LoadSprite(EquipmentPlace equipPlace, int x, int y)
+    {
+        equipPlace.GetComponent<SpriteRenderer>().sprite = Sprite.Create(equipPlace.equip.texture, new Rect(x * width, ((texture.height / height) - (y + 1)) * height, width, height), new Vector2(0.49f, 0.35f), 50f);
     }
 
     public void LoadNude()
@@ -63,17 +72,17 @@ public class Animator : MonoBehaviour
         texture.SetPixels(baseSprite);
 
         texture.Apply(false);
-        
-        if (character.pants != null) LoadSprite(character.pants.texture);
-        if (character.torso != null) LoadSprite(character.torso.texture);
-        if (character.helmet != null) LoadSprite(character.helmet.texture);
-        if (character.mitt != null) LoadSprite(character.mitt.texture);
+        /*
+        if (character.pants != null) LoadTexture(character.pants.texture);
+        if (character.torso != null) LoadTexture(character.torso.texture);
+        if (character.helmet != null) LoadTexture(character.helmet.texture);
+        if (character.mitt != null) LoadTexture(character.mitt.texture);
         HitWeapon hw = character.weapon.GetComponent(typeof(HitWeapon)) as HitWeapon;
         if (hw.texture != null) LoadSprite(hw.texture);
-        
+        */
     }
 
-    public void LoadSprite(Texture2D textureAdd)
+    public void LoadTexture(Texture2D textureAdd)
     {
         int mipCount = Mathf.Min(textureAdd.mipmapCount, texture.mipmapCount);
 

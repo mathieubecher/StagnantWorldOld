@@ -9,9 +9,14 @@ public enum ItemType
 
 public class Item
 {
+    public string name;
     public ItemType type;
-    public Item(ItemType type)
+    public Sprite sprite;
+
+    public Item(string name, ItemType type, Sprite sprite)
     {
+        this.name = name;
+        this.sprite = sprite;
         this.type = type;
     }
 }

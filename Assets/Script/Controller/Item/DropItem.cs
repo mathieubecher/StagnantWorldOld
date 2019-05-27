@@ -5,13 +5,15 @@ using UnityEngine;
 public class DropItem : MonoBehaviour
 {
     private HumanController cc;
+    public string name;
     public ItemType type;
     public Texture2D texture;
-    private Equipment equip;
+    public Item item;
 
     void Start()
     {
-        equip = new Equipment(type,texture);
+
+        item = new Equipment(name,type,GetComponent<SpriteRenderer>().sprite, texture);
     }
     void Update()
     {
@@ -19,13 +21,16 @@ public class DropItem : MonoBehaviour
             if (gameObject.GetComponent<Collider2D>().Distance(cc.gameObject.GetComponent<Collider2D>()).distance>0) {
                 cc = null;
             }
-            if (Input.GetKey(InputConfig.Interact) || Input.GetKey(KeyCode.JoystickButton1))
+            if (Input.GetKeyDown(InputConfig.Interact) || Input.GetKeyDown(KeyCode.JoystickButton1))
             { 
-                if (equip.type == ItemType.HELMET) cc.helmet = equip;
-                else if (equip.type == ItemType.PANTS) cc.pants = equip;
-                else if (equip.type == ItemType.MITT) cc.mitt = equip;
-                else if (equip.type == ItemType.TORSO) cc.torso = equip;
-                (cc.gameObject.GetComponent(typeof(Animator)) as Animator).LoadNude() ;
+                if(item is Equipment) {
+                    Equipment equip = item as Equipment;
+                    if (equip.type == ItemType.HELMET) cc.helmet.equip = equip;
+                    else if (equip.type == ItemType.PANTS) cc.pants.equip = equip;
+                    else if (equip.type == ItemType.MITT) cc.mitt.equip = equip;
+                    else if (equip.type == ItemType.TORSO) cc.torso.equip = equip;
+                    (cc.gameObject.GetComponent(typeof(Animator)) as Animator).changeStateDir = true;
+                }
                 Destroy(this.gameObject);
                 Destroy(this);
                 

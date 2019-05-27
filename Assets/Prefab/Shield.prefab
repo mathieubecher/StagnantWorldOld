@@ -15,6 +15,7 @@ MonoBehaviour:
   hitbox: {fileID: 8865689947886625462}
   name: shield
   chargeMove: 0.5
+  texture: {fileID: 0}
 --- !u!1001 &3525719622105051099
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36,6 +37,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5468668855534673865, guid: a4bac58201917d94ca2d061b727a868a,
+        type: 3}
+      propertyPath: m_TagString
+      value: Hitbox
       objectReference: {fileID: 0}
     - target: {fileID: 5468668855534673864, guid: a4bac58201917d94ca2d061b727a868a,
         type: 3}
@@ -92,16 +98,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5468668857234918764, guid: a4bac58201917d94ca2d061b727a868a,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5468668857234918764, guid: a4bac58201917d94ca2d061b727a868a,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 5468668857234918765, guid: a4bac58201917d94ca2d061b727a868a,
         type: 3}
       propertyPath: m_TagString
@@ -111,6 +107,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5468668857234918764, guid: a4bac58201917d94ca2d061b727a868a,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5468668857234918764, guid: a4bac58201917d94ca2d061b727a868a,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5468668857234918763, guid: a4bac58201917d94ca2d061b727a868a,
         type: 3}

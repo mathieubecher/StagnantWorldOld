@@ -11,10 +11,10 @@ public class HumanController : SimpleController
     public bool left = false;
 
 
-    public Equipment helmet;
-    public Equipment pants;
-    public Equipment mitt;
-    public Equipment torso;
+    public EquipmentPlace helmet;
+    public EquipmentPlace pants;
+    public EquipmentPlace mitt;
+    public EquipmentPlace torso;
 
     public State CurrentState { get => currentState; set => currentState = value; }
 
