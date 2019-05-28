@@ -41,7 +41,10 @@ public class State : OriginalState
     /*--------------------------------------------------------------------------*/
     public override void ChargeHit()
     {
-        character.CurrentState = new ChargeHitState(character, Direction);
+        if (character.GetWeapon() != null)
+        {
+            character.CurrentState = new ChargeHitState(character, Direction);
+        }
     }
 
     /*                                 DASH                                     */
