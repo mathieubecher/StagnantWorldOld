@@ -3905,7 +3905,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: shield
   type: 4
-  texture: {fileID: 0}
+  texture: {fileID: 2800000, guid: c4058f5766c47444896025292358ee2e, type: 3}
   weapon: {fileID: 1550406752, guid: 6dc1e4ad1ae5151429dca14f02bef8ac, type: 3}
 --- !u!61 &1921550542
 BoxCollider2D:
