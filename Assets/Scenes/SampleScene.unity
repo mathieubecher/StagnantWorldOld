@@ -2688,7 +2688,7 @@ GameObject:
   - component: {fileID: 1495470373}
   - component: {fileID: 1495470372}
   - component: {fileID: 1495470376}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: hitbox (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4731,6 +4731,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9192625050025091403, guid: 3b009d7fb882de64cb6162b870cf628b,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2092413135513390186, guid: 3b009d7fb882de64cb6162b870cf628b,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b009d7fb882de64cb6162b870cf628b, type: 3}
