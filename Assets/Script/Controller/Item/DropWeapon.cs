@@ -22,8 +22,8 @@ public class DropWeapon : DropItem
             {
                 first = false;
                 Weapon equip = item as Weapon;
-                if (equip.type == ItemType.LEFT) cc.leftWeapon = equip;
-                else if (equip.type == ItemType.RIGHT) cc.weapon = equip;
+                if (equip.type == ItemType.LEFT) cc.leftWeapon.equip = equip;
+                else if (equip.type == ItemType.RIGHT) cc.weapon.equip = equip;
                 (cc.gameObject.GetComponent(typeof(Animator)) as Animator).changeStateDir = true;
                 Destroy(this.gameObject);
                 Destroy(this);

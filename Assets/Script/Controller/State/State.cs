@@ -31,8 +31,10 @@ public class State : OriginalState
     /*--------------------------------------------------------------------------*/
     public override void Hit()
     {
-        HitWeapon hitweapon = character.GetWeapon().GetComponent(typeof(HitWeapon)) as HitWeapon;
-        character.CurrentState = new HitState(character, Direction, hitweapon.Hits[0]);
+        if(character.GetWeapon() != null) { 
+            HitWeapon hitweapon = character.GetWeapon().GetComponent(typeof(HitWeapon)) as HitWeapon;
+            character.CurrentState = new HitState(character, Direction, hitweapon.Hits[0]);
+        }
     }
 
     /*                               CHARGEHIT                                  */

@@ -6,8 +6,8 @@ public class HumanController : SimpleController
 {
     private State currentState;
 
-    public Weapon weapon;
-    public Weapon leftWeapon;
+    public EquipmentPlace weapon;
+    public EquipmentPlace leftWeapon;
     public bool left = false;
 
 
@@ -27,7 +27,7 @@ public class HumanController : SimpleController
 
     public GameObject GetWeapon()
     {
-        if (left) return leftWeapon.hitweapon.gameObject;
-        else return weapon.hitweapon.gameObject;
+        if (left) return (leftWeapon.equip != null)?(leftWeapon.equip as Weapon).hitweapon.gameObject : null;
+        else return (weapon.equip != null) ? (weapon.equip as Weapon).hitweapon.gameObject:null;
     }
 }

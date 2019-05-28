@@ -58,6 +58,8 @@ public class Animator : MonoBehaviour
         if (character.torso.equip != null) LoadSprite(character.torso, x, y);
         if (character.helmet.equip != null) LoadSprite(character.helmet, x, y);
         if (character.mitt.equip != null) LoadSprite(character.mitt, x, y);
+        if(character.leftWeapon.equip != null) LoadSprite(character.leftWeapon, x, y);
+        if (character.weapon.equip != null) LoadSprite(character.weapon, x, y);
     }
 
     public void LoadSprite(EquipmentPlace equipPlace, int x, int y)
