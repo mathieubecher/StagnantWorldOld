@@ -51,7 +51,8 @@ public class State : OriginalState
     /*--------------------------------------------------------------------------*/
     public override void Dash()
     {
-        character.CurrentState = new DashState(character, Direction);
+        if(Math.Abs(character.Move.x) + Math.Abs(character.Move.y) > 0)
+            character.CurrentState = new DashState(character, Direction);
     }
 
     /*                              CHARGEDASH                                  */
@@ -59,6 +60,13 @@ public class State : OriginalState
     public override void ChargeDash()
     {
         character.CurrentState = new RunState(character, Direction);
+    }
+
+    /*                                STUN                                      */
+    /*--------------------------------------------------------------------------*/
+    public override void Stun()
+    {
+        
     }
 
     /*                                UPDATE                                    */

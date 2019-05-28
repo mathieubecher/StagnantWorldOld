@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class HitWeapon : MonoBehaviour
 {
-    protected GameObject parent;
-    public GameObject hitbox;
+    public HumanController parent;
+    public Hitbox hitbox;
     public string name;
     protected List<HitConfig> hits = new List<HitConfig>();
     protected HitConfig chargeHit;
@@ -22,8 +22,8 @@ public class HitWeapon : MonoBehaviour
     }
     void Start()
     {
-        Debug.Log("change hitbox");
-        (hitbox.GetComponent(typeof(Hitbox)) as Hitbox).damage = this.damage;
+        //Debug.Log("change hitbox");
+        hitbox.damage = this.damage;
     }
     
     public virtual void LoadAllHit()
@@ -37,7 +37,7 @@ public class HitWeapon : MonoBehaviour
 
     public virtual void LoadCharge(HumanController controller, ChargeHitState state)
     {
-        Debug.Log("Commence à charger son coup");
+        //Debug.Log("Commence à charger son coup");
     }
 
     public virtual void ChargeHitUpdate(HumanController controller)
@@ -48,7 +48,7 @@ public class HitWeapon : MonoBehaviour
     {
 
     }
-    public void SetParent(GameObject parent)
+    public void SetParent(HumanController parent)
     {
         this.parent = parent;
     }

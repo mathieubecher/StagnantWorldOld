@@ -13,6 +13,7 @@ public class ChargeHitState : State
     public ChargeHitState(HumanController controller, Direction direction) : base(controller, direction)
     {
         HitWeapon hitweapon = character.GetWeapon().GetComponent(typeof(HitWeapon)) as HitWeapon;
+        
         hitweapon.LoadCharge(character,this);
     }
 

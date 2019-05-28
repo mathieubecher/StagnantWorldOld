@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d40c82e88439d84f8b7b4acb9d49e37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitbox: {fileID: 8865689947886625462}
+  parent: {fileID: 0}
+  hitbox: {fileID: 2085107365255877923}
   name: shield
   chargeMove: 0.5
   texture: {fileID: 0}
@@ -32,7 +33,7 @@ PrefabInstance:
     - target: {fileID: 5468668855534673865, guid: a4bac58201917d94ca2d061b727a868a,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5468668855534673865, guid: a4bac58201917d94ca2d061b727a868a,
         type: 3}
@@ -133,9 +134,15 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3525719622105051099}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &8865689947886625462 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5468668857234918765, guid: a4bac58201917d94ca2d061b727a868a,
+--- !u!114 &2085107365255877923 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3171120490992548600, guid: a4bac58201917d94ca2d061b727a868a,
     type: 3}
   m_PrefabInstance: {fileID: 3525719622105051099}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb47a69950c1c76439603e91a7fa9406, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

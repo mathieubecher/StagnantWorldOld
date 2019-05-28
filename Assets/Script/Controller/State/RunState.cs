@@ -15,8 +15,12 @@ public class RunState : State
     /*                                  MOVE                                    */
     /*--------------------------------------------------------------------------*/
     public override void Move() {
-        character.GetComponent<Rigidbody2D>().velocity = character.Move * 1.5f;
-        UpdateDirection();
+        if (Math.Abs(character.Move.x) + Math.Abs(character.Move.y) > 0)
+        {
+            character.GetComponent<Rigidbody2D>().velocity = character.Move * 1.5f;
+            UpdateDirection();
+        }
+        else Dash();
     }
     /*                                  HIT                                     */
     /*--------------------------------------------------------------------------*/

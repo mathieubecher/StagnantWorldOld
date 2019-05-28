@@ -49,7 +49,7 @@ public class CharacterController : HumanController
         }
         else
         {
-            if (Math.Abs(move.x) + Math.Abs(move.y) > 0 && activeA>0) {
+            if (activeA>0) {
                 Debug.Log("Dash");
                 CurrentState.Dash();
             }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Hitbox : MonoBehaviour
 {
     public int damage = 0;
-    public GameObject weapon;
+    public HitWeapon weapon;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,12 +18,13 @@ public class Hitbox : MonoBehaviour
         
     }
 
-   
+
     void OnTriggerEnter2D(Collider2D c)
     {
-        if((c.tag == "Character" || c.tag == "IA") && !c.isTrigger) {
+        if ((c.tag == "Character" || c.tag == "IA") && !c.isTrigger)
+        {
             SimpleController cc = c.gameObject.GetComponent(typeof(SimpleController)) as SimpleController;
-            Debug.Log("touché "+ damage );
+            Debug.Log("touché " + damage);
             cc.Life -= damage;
         }
     }

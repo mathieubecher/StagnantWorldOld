@@ -9,16 +9,26 @@ public class MobController : HumanController
     public bool isTarget = false;
     public float speed = 0.1f;
     public Material SHADER;
+    public bool chargehit = true;
     
     protected override void Start()
     {
         base.Start();
         target = transform.position;
+        left = false;
     }
     protected override void Update()
     {
         DetectMoveInput();
         CurrentState.Move();
+        if (chargehit)
+        {
+            CurrentState.ChargeHit();
+        }
+        else
+        {
+            CurrentState.Hit();
+        }
         CurrentState.Update();
         if (Input.GetMouseButtonDown(0) && isTarget)
         {

@@ -44,7 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76a0822e4c96919469ce4f60a1207f52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitbox: {fileID: 5468668857234918765}
+  parent: {fileID: 0}
+  hitbox: {fileID: 3171120490992548600}
   name: sword
   chargeMove: 0
   texture: {fileID: 2800000, guid: c4058f5766c47444896025292358ee2e, type: 3}
@@ -170,4 +171,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
-  weapon: {fileID: 5468668855534673865}
+  weapon: {fileID: 1002240960263598134}

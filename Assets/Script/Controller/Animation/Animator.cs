@@ -5,50 +5,81 @@ using System;
 
 public class Animator : MonoBehaviour
 {
+    // original texture
     public Texture2D SPRITEBASE;
+    // main character texture
     private Texture2D texture;
+    // nb sprites
     public int width;
     public int height;
+    
     private SpriteRenderer spriteRenderer;
+    // Controller
     private HumanController character;
+
+    // Actual sprite
     public Sprite sprite;
+    // Animation direction
     public Direction direction;
+    // Actual animation
     private AnimSpritePos actualAnim;
+    // All animation
     private CharacterAnimMap allAnim;
 
+    // Direction or state change
     public bool changeStateDir = false;
+    // Last state treat
     private string lastState = "";
+    // Last hit id
     private int lastId = 0;
-
-    public float time = 0;
 
     // Start is called before the first frame update
     void Start()
     {
+        // Get controller
         character = GetComponent(typeof(HumanController)) as HumanController;
+        // Get spriterenderer
         spriteRenderer = GetComponent<SpriteRenderer>();
-        texture = new Texture2D(SPRITEBASE.width, SPRITEBASE.height);
-        texture.filterMode = FilterMode.Point;
+        // Load Nude
         LoadNude();
+        // First sprite to default
         TakeSprite(0);
+        // Load all anim
         allAnim = new CharacterAnimMap();
+        // Get first anim
         actualAnim = allAnim.Get("Move");
         
     }
+    // Copy of original texture
+    public void LoadNude()
+    {
+        texture = SPRITEBASE;
+        /*
+        texture = new Texture2D(SPRITEBASE.width, SPRITEBASE.height);
+        texture.filterMode = FilterMode.Point;
 
-    // Update is called once per frame
+        Color[] baseSprite = SPRITEBASE.GetPixels();
+        texture.SetPixels(baseSprite);
+
+        texture.Apply(false);
+        */
+    }
+
     void Update()
     {
+        // Update all data
         character.CurrentState.AnimProgress();
         UpdateDirection();
+        // Update current sprite
         UpdateSprite();
         
     }
-
+    // Load new sprite
     public void TakeSprite(int pos)
     {
         TakeSprite(pos % (texture.width / width), Mathf.Min(pos / (texture.width / width)));
     }
+
     public void TakeSprite(int x, int y)
     {
 
@@ -61,47 +92,12 @@ public class Animator : MonoBehaviour
         if(character.leftWeapon.equip != null) LoadSprite(character.leftWeapon, x, y);
         if (character.weapon.equip != null) LoadSprite(character.weapon, x, y);
     }
-
     public void LoadSprite(EquipmentPlace equipPlace, int x, int y)
     {
         equipPlace.GetComponent<SpriteRenderer>().sprite = Sprite.Create(equipPlace.equip.texture, new Rect(x * width, ((texture.height / height) - (y + 1)) * height, width, height), new Vector2(0.49f, 0.35f), 50f);
     }
 
-    public void LoadNude()
-    {
-
-        Color[] baseSprite = SPRITEBASE.GetPixels();
-        texture.SetPixels(baseSprite);
-
-        texture.Apply(false);
-        /*
-        if (character.pants != null) LoadTexture(character.pants.texture);
-        if (character.torso != null) LoadTexture(character.torso.texture);
-        if (character.helmet != null) LoadTexture(character.helmet.texture);
-        if (character.mitt != null) LoadTexture(character.mitt.texture);
-        HitWeapon hw = character.weapon.GetComponent(typeof(HitWeapon)) as HitWeapon;
-        if (hw.texture != null) LoadSprite(hw.texture);
-        */
-    }
-
-    public void LoadTexture(Texture2D textureAdd)
-    {
-        int mipCount = Mathf.Min(textureAdd.mipmapCount, texture.mipmapCount);
-
-        Color[] finalSprite = texture.GetPixels();
-        Color[] textureSprite = textureAdd.GetPixels();
-        for (int i = 0; i < finalSprite.Length; ++i)
-        {
-            if (textureSprite[i].a > 0)
-                finalSprite[i] = textureSprite[i];
-            else
-                finalSprite[i] = finalSprite[i];
-        }
-        texture.SetPixels(finalSprite);
-        texture.Apply(false);
-    }
-
-
+    // Update anim direction
     private void UpdateDirection()
     {
         Direction last = direction;
@@ -111,6 +107,7 @@ public class Animator : MonoBehaviour
            character.CurrentState.Direction == Direction.BOTTOM) direction = character.CurrentState.Direction;
         if (last != direction) changeStateDir = true;
     }
+
 
     private void UpdateSprite()
     {
@@ -132,7 +129,7 @@ public class Animator : MonoBehaviour
             }
             catch
             {
-                Debug.Log("can't load hit");
+                //Debug.Log("can't load hit");
             }
         }
         else if (lastId != 0){
